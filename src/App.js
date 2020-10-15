@@ -94,7 +94,7 @@ class App extends React.Component {
 
         console.log(this.state.suEmail)
 
-        axios.post(`http://help-spring-api.herokuapp.com/api/users/registeruser`, {"body": ""}, {headers: suUser})
+        axios.post(`https://help-spring-api.herokuapp.com/api/users/registeruser`, {"body": ""}, {headers: suUser})
             .then(res => {
                 alert(JSON.stringify(res));
             })
@@ -103,7 +103,7 @@ class App extends React.Component {
                 alert("Error: " + err)
             })
 
-    }
+    }//
 
     render() {
         return (
