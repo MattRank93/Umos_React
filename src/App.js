@@ -8,6 +8,11 @@ import FormLabel from '@material-ui/core/FormLabel';
 import Grid from '@material-ui/core/Grid';
 import axios from 'axios';
 import './App.css';
+import ReactDOM from 'react-dom';
+import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
+import Home from './Home';
+import About from './About';
+import Contact from './Contact';
 
 class App extends React.Component {
 
@@ -67,6 +72,24 @@ class App extends React.Component {
     render() {
         return(
             <div className="App">
+                {/*<Router>*/}
+                {/*    <div className="App">*/}
+                {/*            <li>*/}
+                {/*                <Link to="/">Home</Link>*/}
+                {/*            </li>*/}
+                {/*            <li>*/}
+                {/*                <Link to="/about">About Us</Link>*/}
+                {/*            </li>*/}
+                {/*            <li>*/}
+                {/*                <Link to="/contact">Contact Us</Link>*/}
+                {/*            </li>*/}
+                {/*        <Switch>*/}
+                {/*            <Route exact path='/' component={Home}></Route>*/}
+                {/*            <Route exact path='/about' component={About}></Route>*/}
+                {/*            <Route exact path='/contact' component={Contact}></Route>*/}
+                {/*        </Switch>*/}
+                {/*    </div>*/}
+                {/*</Router>*/}
 
                 <Grid
                     container
@@ -104,5 +127,4 @@ class App extends React.Component {
             )
         }
 }
-
 export default App;
