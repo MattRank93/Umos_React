@@ -19,7 +19,6 @@ class App extends React.Component {
     state = {
         email: '',
         pass: '',
-        stuff: '',
         suFirstname: '',
         suLastname: '',
         suEmail: '',
@@ -52,12 +51,6 @@ class App extends React.Component {
 
     changeSuPasswordField = event => {
         this.setState({suPassword: event.target.value});
-    }
-
-    addCoolStuff = event => {
-        event.preventDefault();
-        firestore.addStuff(this.state.stuff).then(r =>
-            console.log("awesome" + r))
     }
 
     signIn = event => {
@@ -106,29 +99,11 @@ class App extends React.Component {
                 alert("Error: " + err)
             })
 
-    }
+    }//
 
     render() {
         return (
             <div className="App">
-                {/*<Router>*/}
-                {/*    <div className="App">*/}
-                {/*            <li>*/}
-                {/*                <Link to="/">Home</Link>*/}
-                {/*            </li>*/}
-                {/*            <li>*/}
-                {/*                <Link to="/about">About Us</Link>*/}
-                {/*            </li>*/}
-                {/*            <li>*/}
-                {/*                <Link to="/contact">Contact Us</Link>*/}
-                {/*            </li>*/}
-                {/*        <Switch>*/}
-                {/*            <Route exact path='/' component={Home}></Route>*/}
-                {/*            <Route exact path='/about' component={About}></Route>*/}
-                {/*            <Route exact path='/contact' component={Contact}></Route>*/}
-                {/*        </Switch>*/}
-                {/*    </div>*/}
-                {/*</Router>*/}
 
                 <Grid
                     container
@@ -138,6 +113,24 @@ class App extends React.Component {
                     justify="center"
                     style={{minHeight: '100vh'}}
                 >
+                    <Router>
+                        <div className="App">
+                                <li>
+                                    <Link to="/">Home</Link>
+                                </li>
+                                <li>
+                                    <Link to="/about">About Us</Link>
+                                </li>
+                                <li>
+                                    <Link to="/contact">Contact Us</Link>
+                                </li>
+                            <Switch>
+                                <Route exact path='/' component={Home}></Route>
+                                <Route exact path='/about' component={About}></Route>
+                                <Route exact path='/contact' component={Contact}></Route>
+                            </Switch>
+                        </div>
+                    </Router>
                     <Grid item xs={6} sm={3}>
                         <FormGroup>
                             <FormLabel focused={true}>Sign Into Cool API</FormLabel>
@@ -178,11 +171,6 @@ class App extends React.Component {
                             <FormControl>
                                 <Button variant="contained" color="primary" onClick={this.signUp}>
                                     Sign Up
-                                </Button>
-                            </FormControl>
-                            <FormControl>
-                                <Button variant="contained" color="primary" onClick={this.addCoolStuff}>
-                                    Add stuff
                                 </Button>
                             </FormControl>
                         </FormGroup>
