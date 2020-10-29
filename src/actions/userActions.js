@@ -1,6 +1,7 @@
 // Action Creators
 
 import axios from "axios";
+import {history} from '../store'
 
 const setUser = (payload) => ({ type: "SET_USER", payload})
 
@@ -9,13 +10,9 @@ export const logUserOut = () => ({type: "LOG_OUT"})
 // Methods
 
 export const fetchUser = (userInfo) => dispatch => {
-    const user = {
-        "email": userInfo.username,
-        "password": userInfo.password
-    };
     fetch(`https://help-spring-api.herokuapp.com/api/users/login`, {
         method: "POST",
-        headers: user,
+        headers: userInfo,
         body: ""
     })
         .then(res => res.json())
@@ -26,10 +23,10 @@ export const fetchUser = (userInfo) => dispatch => {
             //     user: {},
             //.    token: "aaaaa.bbbbb.bbbbb"
             // }
-            localStorage.setItem("token", data.accessToken)
-            console.log(data.accessToken)
+            //localStorage.setItem("token", data.accessToken)
+            //console.log(data.accessToken)
             dispatch(setUser(data))
-            console.log(setUser())
+            history.push("/profile")
         })
 }
 

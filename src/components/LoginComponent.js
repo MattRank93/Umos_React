@@ -1,10 +1,11 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {fetchUser} from '../actions/userActions'
+import {history} from '../store'
 
 class LoginComponent extends React.Component {
     state = {
-        username: "",
+        email: "",
         password: ""
     }
 
@@ -27,9 +28,9 @@ class LoginComponent extends React.Component {
                 <form onSubmit={this.onSubmit}>
                     <input
                         type="text"
-                        name="username"
-                        placeholder="Username"
-                        value={this.state.username}
+                        name="email"
+                        placeholder="Email"
+                        value={this.state.email}
                         onChange={this.handleOnChange}
                     />
                     <br/>
