@@ -17,6 +17,7 @@ import { history } from "./helpers/history";
 const App = () => {
   const { user: currentUser } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+  document.title = 'stuff';
 
   useEffect(() => {
     history.listen((location) => {
@@ -32,9 +33,6 @@ const App = () => {
       <Router history={history}>
         <div>
           <nav className="navbar navbar-expand navbar-dark bg-dark">
-            <Link to={"/"} className="navbar-brand">
-              bezKoder
-            </Link>
             <div className="navbar-nav mr-auto">
               <li className="nav-item">
                 <Link to={"/home"} className="nav-link">
