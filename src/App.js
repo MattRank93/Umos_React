@@ -6,7 +6,7 @@ import "./App.css";
 
 import Login from "./components/Login";
 import Home from "./components/Home";
-import Profile from "./components/Profile";
+import Profile from "./components/Dashboard";
 //import BoardUser from "./components/BoardUser";
 
 import { logout } from "./actions/auth";
