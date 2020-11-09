@@ -27,22 +27,10 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import DashboardIcon from "@material-ui/icons/Dashboard";
 import ListItemText from "@material-ui/core/ListItemText";
 import { logout } from "../actions/auth";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {Redirect} from "react-router-dom";
+import {Copyright} from "../elements/copyright";
 import Login from "./Login";
-
-function Copyright() {
-    return (
-        <Typography variant="body2" color="textSecondary" align="center">
-            {'Copyright © '}
-            <Link color="inherit" href="https://material-ui.com/">
-                Your Website
-            </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-    );
-}
 
 const drawerWidth = 240;
 
@@ -126,9 +114,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Dashboard = (props) => {
-
+    const dispatch = useDispatch();
     const classes = useStyles();
     const [open, setOpen] = React.useState(true);
+    // const { user: currentUser } = useSelector((state) => state.auth);
+    //
+    // if (!currentUser) {
+    //     return <Redirect to="/login" />;
+    // }
     const handleDrawerOpen = () => {
         setOpen(true);
     };
@@ -137,7 +130,6 @@ const Dashboard = (props) => {
         setOpen(false);
     };
 
-    const dispatch = useDispatch();
     const logOut = () => {
         dispatch(logout());
         props.history.push("/login");

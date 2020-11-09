@@ -17,6 +17,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import {makeStyles} from '@material-ui/core/styles';
 import {login} from "../actions/auth";
+import {Copyright} from "../elements/copyright";
 
 const Login = (props) => {
     const form = useRef();
@@ -40,19 +41,6 @@ const Login = (props) => {
         const password = e.target.value;
         setPassword(password);
     };
-
-    function Copyright() {
-        return (
-            <Typography variant="body2" color="textSecondary" align="center">
-                {'Copyright © '}
-                <Link color="inherit" href="https://material-ui.com/">
-                    Your Website
-                </Link>{' '}
-                {new Date().getFullYear()}
-                {'.'}
-            </Typography>
-        );
-    }
 
     const useStyles = makeStyles((theme) => ({
         root: {
@@ -95,7 +83,7 @@ const Login = (props) => {
             dispatch(await login(email, password))
                 .then(() => {
                     props.history.push("/profile");
-                    //window.location.reload();
+                    isLoggedIn = true
                 })
                 .catch(() => {
                     setLoading(false);
@@ -163,12 +151,12 @@ const Login = (props) => {
                         </Button>
                         <Grid container>
                             <Grid item xs>
-                                <Link href="#" variant="body2">
+                                <Link href={"/forgot"} variant="body2">
                                     Forgot password?
                                 </Link>
                             </Grid>
                             <Grid item>
-                                <Link href="#" variant="body2">
+                                <Link href={"/register"} variant="body2">
                                     {"Don't have an account? Sign Up"}
                                 </Link>
                             </Grid>
@@ -176,14 +164,6 @@ const Login = (props) => {
                         <Box mt={5}>
                             <Copyright/>
                         </Box>
-                        <div className="form-group">
-                            <button className="btn btn-primary btn-block" disabled={loading}>
-                                {loading && (
-                                    <span className="spinner-border spinner-border-sm"/>
-                                )}
-                                <span>Login</span>
-                            </button>
-                        </div>
 
                         {message && (
                             <div className="form-group">
