@@ -1,9 +1,7 @@
-import React, {useRef, useState} from "react";
+import React, {useContext, useEffect, useRef, useState} from "react";
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import Form from "react-validation/build/form";
-import {useDispatch, useSelector} from "react-redux";
-import { Redirect } from 'react-router-dom';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -16,31 +14,50 @@ import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import {makeStyles} from '@material-ui/core/styles';
-import {login} from "../actions/auth";
-import {Copyright} from "../elements/copyright";
+import AuthService from "../auth.service";
+import {Redirect, useHistory} from 'react-router-dom';
+
+const required = (value) => {
+    if (!value) {
+        return (
+            <div className="alert alert-danger" role="alert">
+                This field is required!
+            </div>
+        );
+    }
+};
 
 const Login = (props) => {
     const form = useRef();
     const checkBtn = useRef();
-
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const [user, setUser] = useState(' ')
     const [loading, setLoading] = useState(false);
+    const [message, setMessage] = useState("");
+    const [isLoggedIn, setLoggedIn] = useState(false);
+    const [accessToken, setAccessToken] = useState();
 
-    const {isLoggedIn} = useSelector(state => state.auth);
-    const {message} = useSelector(state => state.message);
 
-    const dispatch = useDispatch();
+    const [userSub, setUserSub] = useState({
+        email: '',
+        password: '',
+    }); //
 
-    const onChangeEmail = (e) => {
-        const email = e.target.value;
-        setEmail(email);
-    };
+    function handleChange(e) {
+        const {name, value} = e.target;
+        setUserSub(user => ({...user, [name]: value}));
+    }
 
-    const onChangePassword = (e) => {
-        const password = e.target.value;
-        setPassword(password);
-    };
+    useEffect(() => {
+        const loggedInUser = localStorage.getItem("user");
+        const isLoggedIn = localStorage.getItem("loggedIn");
+        if (loggedInUser && isLoggedIn) {
+            const foundUser = JSON.parse(loggedInUser);
+            setUser(foundUser);
+            setLoggedIn(true)
+            setAccessToken(foundUser.accessToken)
+            return <Redirect to="/profile"/>;
+        }
+    }, []);
 
     const useStyles = makeStyles((theme) => ({
         root: {
@@ -75,27 +92,42 @@ const Login = (props) => {
 
     const classes = useStyles();
 
-    const handleLogin = async (e) => {
+    const handleLogin = (e) => {
         e.preventDefault();
+
+        setMessage("");
         setLoading(true);
 
+        form.current.validateAll();
+
         if (checkBtn.current.context._errors.length === 0) {
-            dispatch(await login(email, password))
-                .then(() => {
-                    props.history.push("/profile");
-                    isLoggedIn = true
-                })
-                .catch(() => {
+            AuthService.login(userSub).then(
+                (res) => {
+                    setTimeout(() => {
+                        console.log(res)
+                        setUser(JSON.stringify(res))
+                        setAccessToken(res.accessToken)
+                        localStorage.setItem("user", JSON.stringify(res));
+                        localStorage.setItem('accessToken', res.accessToken)
+                        props.history.push('/profile')
+                    }, 1000);
+                },
+                (error) => {
+                    const resMessage =
+                        (error.response &&
+                            error.response.data &&
+                            error.response.data.message) ||
+                        error.message ||
+                        error.toString();
+
                     setLoading(false);
-                });
+                    setMessage(resMessage);
+                }
+            );
         } else {
             setLoading(false);
         }
     };
-
-    if (isLoggedIn) {
-        return <Redirect to="/profile"/>;
-    }
 
     return (
         <Grid container className={classes.root}>
@@ -120,8 +152,9 @@ const Login = (props) => {
                             name="email"
                             autoComplete="email"
                             autoFocus
-                            value={email}
-                            onChange={onChangeEmail}
+                            value={userSub.email}
+                            onChange={handleChange}
+                            validations={[required]}
                         />
                         <TextField
                             variant="outlined"
@@ -133,21 +166,28 @@ const Login = (props) => {
                             type="password"
                             id="password"
                             autoComplete="current-password"
-                            value={password}
-                            onChange={onChangePassword}
+                            value={userSub.password}
+                            onChange={handleChange}
+                            validations={[required]}
                         />
                         <FormControlLabel
                             control={<Checkbox value="remember" color="primary"/>}
                             label="Remember me"
                         />
+
                         <Button
                             type="submit"
                             fullWidth
                             variant="contained"
                             color="primary"
                             className={classes.submit}
+                            disabled={loading}
+
                         >
                             Sign In
+                            {loading && (
+                                <span className="spinner-border spinner-border-sm"></span>
+                            )}
                         </Button>
                         <Grid container>
                             <Grid item xs>
@@ -162,7 +202,7 @@ const Login = (props) => {
                             </Grid>
                         </Grid>
                         <Box mt={5}>
-                            <Copyright/>
+
                         </Box>
 
                         {message && (

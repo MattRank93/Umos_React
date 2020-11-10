@@ -13,6 +13,17 @@ const register = (user) => {
     return axios.post(API_URL + "registerdispatcher", {"body": ""}, {headers: dispatcher})
         .then((response) => {
             if (response.data.accessToken) {
+                localStorage.setItem("currentUser", JSON.stringify(response.data));
+            }
+
+            return response.data;
+        });
+};
+
+const login = (user) => {
+    return axios.post(API_URL + "login", {"body": ""}, {headers: user})
+        .then((response) => {
+            if (response.data.accessToken) {
                 localStorage.setItem("user", JSON.stringify(response.data));
             }
 
@@ -20,27 +31,17 @@ const register = (user) => {
         });
 };
 
-const login = (email, password) => {
-  const user = {
-    email: email,
-    password: password
-  }
-  return axios.post(API_URL + "login", {"body": ""}, {headers: user})
-      .then((response) => {
-        if (response.data.accessToken) {
-          localStorage.setItem("user", JSON.stringify(response.data));
-        }
-
-        return response.data;
-      });
+const logout = () => {
+    localStorage.removeItem("user");
 };
 
-const logout = () => {
-  localStorage.removeItem("user");
+const getCurrentUser = () => {
+    return JSON.parse(localStorage.getItem("user"));
 };
 
 export default {
-  register,
-  login,
-  logout,
+    register,
+    login,
+    logout,
+    getCurrentUser,
 };

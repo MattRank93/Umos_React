@@ -1,77 +1,32 @@
-import React, {useEffect, useContext, createContext, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Router, Switch, Route, Link, Redirect,
-  useHistory,
-  useLocation } from 'react-router-dom';
-
-
-import "./App.css";
-
+import React, {useState} from 'react';
+import {BrowserRouter, Router, Route} from 'react-router-dom';
+import { AuthContext } from "./auth";
+import PrivateRoute from './PrivateRoute';
+import {history} from './helpers/history'
 import Login from "./components/Login";
-import Home from "./components/Home";
-import Profile from "./components/Dashboard";
+import Profile from "./components/Profile";
 import Register from "./components/Register";
 import ResetPassword from "./components/ResetPassword";
-
-import { logout } from "./actions/auth";
-import { clearMessage } from "./actions/message";
-
-import { history } from "./helpers/history";
-
-const authContext = createContext();
-export const useAuth = () => {
-
-  return useContext(authContext);
-
-};
+import './App.css';
 
 const App = () => {
-  const { user: currentUser } = useSelector((state) => state.auth);
-  const dispatch = useDispatch();
-  document.title = 'HELP Dashboard';
+    const [accessToken, setAccessToken] = useState();
 
-  function PrivateRoute({ children, ...rest }) {
-    let auth = useAuth();
+    const setToken = (data) => {
+        localStorage.setItem("accessToken", JSON.stringify(data));
+        setAccessToken(data);
+    }
+
     return (
-        <Route
-            {...rest}
-            render={({ location }) =>
-                auth.user ? (
-                    children
-                ) : (
-                    <Redirect
-                        to={{
-                          pathname: "/login",
-                          state: { from: location }
-                        }}
-                    />
-                )
-            }
-        />
+        <AuthContext.Provider value={{ accessToken, setAccessToken: setToken }}>
+            <Router history={history}>
+                <Route exact path="/" component={Login} />
+                <Route path="/register" component={Register} />
+                <Route path="/reset" component={ResetPassword} />
+                <PrivateRoute path="/profile" component={Profile} />
+            </Router>
+        </AuthContext.Provider>
     );
-  }
-
-  useEffect(() => {
-    history.listen((location) => {
-      dispatch(clearMessage()); // clear message when changing location
-    });
-  }, [dispatch]);
-
-  // const logOut = () => {
-  //   dispatch(logout());
-  // };
-
-  return (
-      <Router history={history}>
-            <Switch>
-              <Route exact path={["/", "/home"]} component={Home} />
-              <Route exact path="/login" component={Login} />
-              <PrivateRoute path="/profile" component={Profile} />
-              <Route exact path="/register" component={Register} />
-              <Route exact path="/forgot" component={ResetPassword} />
-            </Switch>
-      </Router>
-  );
-};
+}
 
 export default App;
