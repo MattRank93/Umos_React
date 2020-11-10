@@ -1,13 +1,20 @@
-import React, { useState } from "react";
+import React from "react";
+import {useDispatch} from "react-redux";
+import { Button } from "@material-ui/core"
+import {logout} from "../actions/auth";
 
 const Home = () => {
-  const [content] = useState("");
+    const dispatch = useDispatch();
+
+    const logOut = () => {
+        dispatch(logout);
+    };
 
   return (
     <div className="container">
-      <header className="jumbotron">
-        <h3>{content}</h3>
-      </header>
+        <Button variant="contained" color="primary" onClick={logOut}>
+            Logout
+        </Button>
     </div>
   );
 };

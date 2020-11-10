@@ -18,84 +18,79 @@ import Typography from '@material-ui/core/Typography';
 import {makeStyles} from '@material-ui/core/styles';
 import {login} from "../actions/auth";
 
+const useStyles = makeStyles((theme) => ({
+    root: {
+        height: '100vh',
+    },
+    image: {
+        backgroundImage: 'url(https://source.unsplash.com/random)',
+        backgroundRepeat: 'no-repeat',
+        backgroundColor:
+            theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+    },
+    paper: {
+        margin: theme.spacing(8, 4),
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+    },
+    avatar: {
+        margin: theme.spacing(1),
+        backgroundColor: theme.palette.secondary.main,
+    },
+    form: {
+        width: '100%', // Fix IE 11 issue.
+        marginTop: theme.spacing(1),
+    },
+    submit: {
+        margin: theme.spacing(3, 0, 2),
+    },
+}));
+
+
+const required = (value) => {
+    if (!value) {
+        return (
+            <div className="alert alert-danger" role="alert">
+                This field is required!
+            </div>
+        );
+    }
+};
+
 const Login = (props) => {
     const form = useRef();
     const checkBtn = useRef();
-
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
 
     const {isLoggedIn} = useSelector(state => state.auth);
     const {message} = useSelector(state => state.message);
-
     const dispatch = useDispatch();
 
-    const onChangeEmail = (e) => {
-        const email = e.target.value;
-        setEmail(email);
-    };
+    const [userSub, setUserSub] = useState({
+        email: '',
+        password: '',
+    });
 
-    const onChangePassword = (e) => {
-        const password = e.target.value;
-        setPassword(password);
-    };
-
-    function Copyright() {
-        return (
-            <Typography variant="body2" color="textSecondary" align="center">
-                {'Copyright © '}
-                <Link color="inherit" href="https://material-ui.com/">
-                    Your Website
-                </Link>{' '}
-                {new Date().getFullYear()}
-                {'.'}
-            </Typography>
-        );
+    function handleChange(e) {
+        const {name, value} = e.target;
+        setUserSub(user => ({...user, [name]: value}));
     }
-
-    const useStyles = makeStyles((theme) => ({
-        root: {
-            height: '100vh',
-        },
-        image: {
-            backgroundImage: 'url(https://source.unsplash.com/random)',
-            backgroundRepeat: 'no-repeat',
-            backgroundColor:
-                theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-        },
-        paper: {
-            margin: theme.spacing(8, 4),
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-        },
-        avatar: {
-            margin: theme.spacing(1),
-            backgroundColor: theme.palette.secondary.main,
-        },
-        form: {
-            width: '100%', // Fix IE 11 issue.
-            marginTop: theme.spacing(1),
-        },
-        submit: {
-            margin: theme.spacing(3, 0, 2),
-        },
-    }));
 
     const classes = useStyles();
 
     const handleLogin = async (e) => {
         e.preventDefault();
         setLoading(true);
+        form.current.validateAll();
 
         if (checkBtn.current.context._errors.length === 0) {
-            dispatch(await login(email, password))
+            dispatch(await login(userSub))
                 .then(() => {
-                    props.history.push("/profile");
-                    //window.location.reload();
+
+                    this.props.history.push("/profile");
                 })
                 .catch(() => {
                     setLoading(false);
@@ -132,8 +127,9 @@ const Login = (props) => {
                             name="email"
                             autoComplete="email"
                             autoFocus
-                            value={email}
-                            onChange={onChangeEmail}
+                            value={userSub.email}
+                            onChange={handleChange}
+                            validations={[required]}
                         />
                         <TextField
                             variant="outlined"
@@ -145,45 +141,44 @@ const Login = (props) => {
                             type="password"
                             id="password"
                             autoComplete="current-password"
-                            value={password}
-                            onChange={onChangePassword}
+                            value={userSub.password}
+                            onChange={handleChange}
+                            validations={[required]}
                         />
                         <FormControlLabel
                             control={<Checkbox value="remember" color="primary"/>}
                             label="Remember me"
                         />
+
                         <Button
                             type="submit"
                             fullWidth
                             variant="contained"
                             color="primary"
                             className={classes.submit}
+                            disabled={loading}
+
                         >
                             Sign In
+                            {loading && (
+                                <span className="spinner-border spinner-border-sm"></span>
+                            )}
                         </Button>
                         <Grid container>
                             <Grid item xs>
-                                <Link href="#" variant="body2">
+                                <Link href={"/forgot"} variant="body2">
                                     Forgot password?
                                 </Link>
                             </Grid>
                             <Grid item>
-                                <Link href="#" variant="body2">
+                                <Link href={"/register"} variant="body2">
                                     {"Don't have an account? Sign Up"}
                                 </Link>
                             </Grid>
                         </Grid>
                         <Box mt={5}>
-                            <Copyright/>
+
                         </Box>
-                        <div className="form-group">
-                            <button className="btn btn-primary btn-block" disabled={loading}>
-                                {loading && (
-                                    <span className="spinner-border spinner-border-sm"/>
-                                )}
-                                <span>Login</span>
-                            </button>
-                        </div>
 
                         {message && (
                             <div className="form-group">
