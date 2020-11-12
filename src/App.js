@@ -12,6 +12,7 @@ import ResetPassword from "./components/ResetPassword";
 import { clearMessage } from "./actions/message";
 import { history } from "./helpers/history";
 import PrivateRoute from "./PrivateRoute";
+import GoogleMapSDK from "./components/MapsSDK";
 
 const App = () => {
   const { user: currentUser } = useSelector((state) => state.auth);
@@ -30,7 +31,8 @@ const App = () => {
               <Route exact path= {"/register"} component={Register} />
               <Route exact path= {"/forgot"} component={ResetPassword} />
               <Route exact path= {"/home"} component={Home} />
-              <PrivateRoute path= {"/profile"} loggedIn={currentUser} component={Profile} />
+              <PrivateRoute path= {"/maps"} loggedIn={currentUser} component={GoogleMapSDK}  />
+              <PrivateRoute path= {"/profile"} loggedIn={currentUser} component={Profile}  />
             </Switch>
       </Router>
   );

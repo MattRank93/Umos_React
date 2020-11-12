@@ -4,6 +4,7 @@ import {useDispatch , connect} from "react-redux";
 import {logout} from "../actions/auth";
 import {Button} from "@material-ui/core";
 import store from "../store"
+import {Redirect} from "react-router-dom";
 
 
 const Profile = (props) => {
@@ -16,10 +17,17 @@ const Profile = (props) => {
         dispatch(logout());
     };
 
+    const maps = () => {
+        props.history.push('/maps')
+    };
+
     return (
         <div className="container">
             <Button variant="contained" color="primary" onClick={logOut}>
                 Logout
+            </Button>
+            <Button variant="contained" color="primary" onClick={maps}>
+                Maps (Can't go back)
             </Button>
             {name}
         </div>

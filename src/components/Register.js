@@ -16,6 +16,7 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import {Copyright} from "../../src/elements/copyright";
 import Box from "@material-ui/core/Box";
+import Image from "../Image";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -38,6 +39,9 @@ const useStyles = makeStyles((theme) => ({
     submit: {
         margin: theme.spacing(3, 0, 2),
     },
+    help: {
+        margin: theme.spacing(0, 0, 2)
+    }
 }));
 
 const required = (value) => {
@@ -124,11 +128,12 @@ const Register = (props) => {
         <Container component="main" maxWidth="xs">
             <CssBaseline/>
             <div className={classes.paper}>
+                <Image src='./Background.png' height={62} width={357} mode={"fit"} className={classes.help} />
                 <Avatar className={classes.avatar}>
                     <LockOutlinedIcon/>
                 </Avatar>
-                <Typography component="h1" variant="h5">
-                    Sign up
+                <Typography component="h1" variant="h5" style={{paddingBottom: 20}}>
+                    Register
                 </Typography>
 
                 <Form onSubmit={handleRegister} ref={form}>
