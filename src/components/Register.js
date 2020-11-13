@@ -104,7 +104,7 @@ const Register = (props) => {
         if (checkBtn.current.context._errors.length === 0) {
             AuthService.register(userSub).then(
                 (response) => {
-                    setMessage(response.data.message);
+                    setMessage("Success!");
                     setSuccessful(true);
                 },
                 (error) => {

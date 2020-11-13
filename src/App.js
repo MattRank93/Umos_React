@@ -1,6 +1,6 @@
-import React, {useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import React, {useEffect} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 
 import "./App.css";
 
@@ -9,8 +9,8 @@ import Register from "./components/Register";
 import Profile from "./components/Profile";
 import Home from "./components/Home"
 import ResetPassword from "./components/ResetPassword";
-import { clearMessage } from "./actions/message";
-import { history } from "./helpers/history";
+import {clearMessage} from "./actions/message";
+import {history} from "./helpers/history";
 import PrivateRoute from "./PrivateRoute";
 import GoogleMapSDK from "./components/MapsSDK";
 
@@ -27,7 +27,7 @@ const App = () => {
   return (
       <Router>
             <Switch>
-              <Route exact path= {"/"} component={Login} />
+              <Route exact path={"/"} component={Login}/>
               <Route exact path= {"/register"} component={Register} />
               <Route exact path= {"/forgot"} component={ResetPassword} />
               <Route exact path= {"/home"} component={Home} />

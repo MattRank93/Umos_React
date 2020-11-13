@@ -13,7 +13,7 @@ import Paper from '@material-ui/core/Paper';
 import CheckButton from "react-validation/build/button";
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import PolicyTwoToneIcon from '@material-ui/icons/PolicyTwoTone';
 import Typography from '@material-ui/core/Typography';
 import {makeStyles} from '@material-ui/core/styles';
 import {login} from "../actions/auth";
@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
         height: '100vh',
     },
     image: {
-        backgroundImage: 'url(https://source.unsplash.com/random)',
+        backgroundImage: 'url(https://wallpapercave.com/wp/wp2405396.jpg)',
         backgroundRepeat: 'no-repeat',
         backgroundColor:
             theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
@@ -40,7 +40,6 @@ const useStyles = makeStyles((theme) => ({
     avatar: {
         margin: theme.spacing(1),
         backgroundColor: theme.palette.secondary.main,
-        padding: 20
     },
     form: {
         width: '100%', // Fix IE 11 issue.
@@ -115,9 +114,9 @@ const Login = (props) => {
             <Grid item xs={false} sm={4} md={7} className={classes.image}/>
             <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
                 <div className={classes.paper}>
-                    <Image src='./Background.png' height={62} width={357} mode={"fit"} className={classes.help} />
-                    <Avatar className={classes.avatar} >
-                        <LockOutlinedIcon/>
+                    <Image src='./Background.png' mode={'fit'} height={62} width={357} style={{marginBottom: 10}}/>
+                    <Avatar className={classes.avatar}>
+                        <PolicyTwoToneIcon/>
                     </Avatar>
                     <Typography component="h1" variant="h5">
                         Sign in

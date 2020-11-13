@@ -13,6 +13,7 @@ import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import StepContent from "@material-ui/core/StepContent";
+import {forgot, verify, reset} from "../services/password.service"
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from '@material-ui/icons/Menu';
 
@@ -63,6 +64,8 @@ const ResetPassword = (props) => {
             'Input the code sent to the provided email ',
             'Choose a new password'];
     }
+
+
 
     function getStepContent(step) {
         switch (step) {
@@ -146,10 +149,6 @@ const ResetPassword = (props) => {
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
     };
 
-    const handleReset = () => {
-        setActiveStep(0);
-    };
-
     const handleBackBrowser = () => {
         props.history.push('/')
     };
@@ -209,7 +208,7 @@ const ResetPassword = (props) => {
                                             onClick={handleNext}
                                             className={classes.button}
                                         >
-                                            {activeStep === steps.length - 1 ? 'Place order' : 'Next'}
+                                            {activeStep === steps.length - 1 ? 'Change Password' : 'Next'}
                                         </Button>
                                     </div>
                                 </React.Fragment>

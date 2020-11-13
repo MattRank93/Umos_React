@@ -2,19 +2,8 @@ import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
 import axios from 'axios'
 import Marker from './Marker'
-import CssBaseline from "@material-ui/core/CssBaseline";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import Grid from "@material-ui/core/Grid";
-import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
-import makeStyles from "@material-ui/core/styles/makeStyles";
-import {logout} from "../actions/auth";
-
-import {useDispatch , connect} from "react-redux";
 
 class GoogleMapSDK extends Component {
-
     state = {
         markers: [],
         interval: ""
@@ -45,8 +34,13 @@ class GoogleMapSDK extends Component {
     }
 
     componentDidMount() {
-        this.intervalId = setInterval(this.updateMarkers.bind(this), 10000)
+        this.intervalId = setInterval(this.updateMarkers.bind(this), 5000)
     }
+
+    componentWillUnmount() {
+        clearInterval(this.intervalId)
+    }
+
 
     render() {
         const Markers = this.state.markers.map((marker, index) => (
@@ -59,23 +53,9 @@ class GoogleMapSDK extends Component {
 
         return (
             // Important! Always set the container height explicitly
-            <div style={{ height: '90vh', width: '100%' }}>
-                <AppBar position="static" >
-                    <Toolbar>
-                        <Grid
-                            justify="space-between" // Add it here :)
-                            container
-                            spacing={24}
-                        >
-                            <Button variant="contained" color="secondary">
-                                Back
-                            </Button>
-                            <Typography variant="h6" >HELP Dashboard</Typography>
-                        </Grid>
-                    </Toolbar>
-                </AppBar>
+            <div style={{ height: '93vh', width: '100%' }}>
                 <GoogleMapReact
-                    bootstrapURLKeys={{ key: "AIzaSyBKekm05H0Dxmt8ZboPyNgKqZKyYJ3Zfy8"}}
+                    bootstrapURLKeys={{ key:"AIzaSyBKekm05H0Dxmt8ZboPyNgKqZKyYJ3Zfy8"}}
                     defaultCenter={this.props.center}
                     defaultZoom={this.props.zoom}
                 >

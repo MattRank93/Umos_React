@@ -5,6 +5,11 @@ import {logout} from "../actions/auth";
 import {Button} from "@material-ui/core";
 import store from "../store"
 import {Redirect} from "react-router-dom";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import Typography from "@material-ui/core/Typography";
+import GoogleMapSDK from "./MapsSDK";
 
 
 const Profile = (props) => {
@@ -23,13 +28,21 @@ const Profile = (props) => {
 
     return (
         <div className="container">
-            <Button variant="contained" color="primary" onClick={logOut}>
-                Logout
-            </Button>
-            <Button variant="contained" color="primary" onClick={maps}>
-                Maps (Can't go back)
-            </Button>
-            {name}
+            <AppBar position="static">
+                <Toolbar>
+                    <Grid
+                        justify="space-between" // Add it here :)
+                        container
+                        spacing={24}
+                    >
+                        <Button variant="contained" color="primary" onClick={logOut}>
+                            Logout {name}
+                        </Button>
+                        <Typography variant="h6" >HELP Dashboard</Typography>
+                    </Grid>
+                </Toolbar>
+            </AppBar>
+            <GoogleMapSDK />
         </div>
     );
 };
