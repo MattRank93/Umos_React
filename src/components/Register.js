@@ -14,7 +14,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import Avatar from "@material-ui/core/Avatar";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
-import {Copyright} from "../../src/elements/copyright";
+import {Copyright} from "../elements/copyright";
 import Box from "@material-ui/core/Box";
 import Image from "../Image";
 

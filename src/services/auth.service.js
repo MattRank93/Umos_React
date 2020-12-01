@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:3007/api/users/";
+const API_URL = "https://help-spring-api.herokuapp.com/api/auth/";
 
 const register = (user) => {
     const dispatcher = {
@@ -8,18 +8,22 @@ const register = (user) => {
         lastname: user.lastName,
         email: user.email,
         password: user.password,
-        precinct: user.precinct,
+        phone: user.phone
     }
 
-    return axios.post(API_URL + "registerdispatcher", {"body": ""}, {headers: dispatcher})
+    return axios.post(API_URL + "dispatcher", {"body": dispatcher}, {headers: ""})
         .then((response) => {
-
             return response.data;
         });
 };
 
 const login = (user) => {
-    return axios.post(API_URL + "login", {"body": ""}, {headers: user})
+    const loginRequest = {
+        email: user.email,
+        password: user.password,
+    }
+
+    return axios.post(API_URL + "login", {"body": loginRequest}, {headers: {}})
         .then((response) => {
             if (response.data.accessToken) {
                 localStorage.setItem("user", JSON.stringify(response.data));
