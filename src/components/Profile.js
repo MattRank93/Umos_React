@@ -9,6 +9,8 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
+import IconButton from "@material-ui/core/IconButton";
+import PopoverButton from "../elements/popoverbutton";
 import GoogleMapSDK from "./MapsSDK";
 
 
@@ -35,10 +37,8 @@ const Profile = (props) => {
                         container
                         spacing={24}
                     >
-                        <Button variant="contained" color="primary" onClick={logOut}>
-                            Logout {name}
-                        </Button>
                         <Typography variant="h6" >HELP Dashboard</Typography>
+                        <PopoverButton user={user} />
                     </Grid>
                 </Toolbar>
             </AppBar>

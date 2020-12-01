@@ -27,14 +27,14 @@ class GoogleMapSDK extends Component {
         console.log(this.props.token)
 
         //Get markers from API
-        axios.patch("https://help-spring-api.herokuapp.com/api/locations/driver-locations", call , { headers: {
-                "Authorization": this.props.token
-            }})
-            .then(res => {
-                const markers = res.data
-                console.log(markers)
-                this.setState({markers})
-            })
+        // axios.patch("https://help-spring-api.herokuapp.com/api/locations/driver-locations", call , { headers: {
+        //         "Authorization": this.props.token
+        //     }})
+        //     .then(res => {
+        //         const markers = res.data
+        //         console.log(markers)
+        //         this.setState({markers})
+        //     })
 
 
 
