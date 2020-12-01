@@ -42,7 +42,7 @@ const Profile = (props) => {
                     </Grid>
                 </Toolbar>
             </AppBar>
-            <GoogleMapSDK />
+            <GoogleMapSDK token={user.token}/>
         </div>
     );
 };

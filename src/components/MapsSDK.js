@@ -24,13 +24,34 @@ class GoogleMapSDK extends Component {
             radius: 30
         }
 
+        console.log(this.props.token)
+
         //Get markers from API
-        axios.get("http://localhost:3007/api/dispatchers/accident", {headers: call})
+        axios.patch("https://help-spring-api.herokuapp.com/api/locations/driver-locations", call , { headers: {
+                "Authorization": this.props.token
+            }})
             .then(res => {
                 const markers = res.data
                 console.log(markers)
                 this.setState({markers})
             })
+
+
+
+        /*
+        axios({
+            method: 'PATCH',
+            url: "https://help-spring-api.herokuapp.com/api/locations/driver-locations",
+            data : call,
+            headers: {
+                "Authorization": this.props.token
+            }})
+            .then(res => {
+                const markers = res.data
+                console.log(markers)
+                this.setState({markers})
+            })
+         */
     }
 
     componentDidMount() {
