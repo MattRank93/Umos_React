@@ -13,6 +13,7 @@ import {clearMessage} from "./actions/message";
 import {history} from "./helpers/history";
 import PrivateRoute from "./PrivateRoute";
 import GoogleMapSDK from "./components/MapsSDK";
+import Test from "./components/Test"
 
 const App = () => {
   const { user: currentUser } = useSelector((state) => state.auth);

@@ -85,7 +85,7 @@ const Register = (props) => {
         lastName: '',
         email: '',
         password: '',
-        precinct: ''
+        phone: ''
     });
 
     function handleChange(e) {
@@ -200,12 +200,12 @@ const Register = (props) => {
                                     variant="outlined"
                                     required
                                     fullWidth
-                                    name="precinct"
-                                    label="Precinct"
-                                    type="precinct"
-                                    id="precinct"
-                                    autoComplete="precinct"
-                                    value={userSub.precinct}
+                                    name="phone"
+                                    label="Phone"
+                                    type="phone"
+                                    id="phone"
+                                    autoComplete="phone"
+                                    value={userSub.phone}
                                     onChange={handleChange}
                                 />
                             </Grid>

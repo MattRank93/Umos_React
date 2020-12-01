@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import Stepper from "@material-ui/core/Stepper";
 import Step from "@material-ui/core/Step";
 import StepLabel from "@material-ui/core/StepLabel";
@@ -13,9 +13,9 @@ import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import StepContent from "@material-ui/core/StepContent";
-import {forgot, verify, reset} from "../services/password.service"
-import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from '@material-ui/icons/Menu';
+import PasswordService, {forgot, reset, verify} from "../services/password.service"
+import {useDispatch} from "react-redux";
+import Form from "react-validation/build/form";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -59,13 +59,23 @@ const useStyles = makeStyles((theme) => ({
 
 const ResetPassword = (props) => {
 
+    const [userSub, setUserSub] = useState({
+        email: '',
+        verifyToken: '',
+        newPassword: ''
+    });
+
+    function handleChange(e) {
+        const {name, value} = e.target;
+        setUserSub(user => ({...user, [name]: value}));
+    }
+
+
     function getSteps() {
         return ['Input the email associated with your account',
             'Input the code sent to the provided email ',
             'Choose a new password'];
     }
-
-
 
     function getStepContent(step) {
         switch (step) {
@@ -78,12 +88,17 @@ const ResetPassword = (props) => {
                         <Grid container spacing={3}>
                             <Grid item xs={12} sm={6}>
                                 <TextField
+                                    variant="outlined"
+                                    margin="normal"
                                     required
                                     id="email"
                                     name="email"
                                     label="Email"
                                     fullWidth
                                     autoComplete="given-name"
+                                    autoFocus
+                                    value={userSub.email}
+                                    onChange={handleChange}
                                 />
                             </Grid>
                         </Grid>
@@ -98,12 +113,16 @@ const ResetPassword = (props) => {
                         <Grid container spacing={3}>
                             <Grid item xs={12} sm={6}>
                                 <TextField
+                                    variant="outlined"
+                                    margin="normal"
                                     required
                                     id="token"
                                     name="token"
                                     label="Token"
                                     fullWidth
                                     autoComplete="given-name"
+                                    value={userSub.verifyToken}
+                                    onChange={handleChange}
                                 />
                             </Grid>
                         </Grid>
@@ -118,20 +137,17 @@ const ResetPassword = (props) => {
                         <Grid container spacing={3}>
                             <Grid item xs={12} sm={6}>
                                 <TextField
+                                    variant="outlined"
+                                    margin="normal"
                                     required
-                                    id="newPassword"
-                                    name="newPassword"
-                                    label="New Password"
+                                    id="password"
+                                    name="password"
+                                    label="password"
                                     fullWidth
                                     autoComplete="given-name"
-                                />
-                                <TextField
-                                    required
-                                    id="verifyPassword"
-                                    name="verifyPassword"
-                                    label="Verify Password"
-                                    fullWidth
-                                    autoComplete="given-name"
+                                    autoFocus
+                                    value={userSub.newPassword}
+                                    onChange={handleChange}
                                 />
                             </Grid>
                         </Grid>
@@ -146,7 +162,43 @@ const ResetPassword = (props) => {
     const steps = getSteps();
 
     const handleNext = () => {
-        setActiveStep((prevActiveStep) => prevActiveStep + 1);
+        switch (activeStep) {
+            case 0:
+                PasswordService.forgot(userSub.email)
+                    .then((res) => {
+                        if (res === 200) {
+                            setActiveStep((prevActiveStep) => prevActiveStep + 1);
+                        }
+                    })
+                    .catch(() => {
+                        alert("Error: Invalid Entry")
+                    });
+                break;
+            case 1:
+                PasswordService.verify(userSub.email, userSub.verifyToken)
+                    .then((res) => {
+                        if (res === 200) {
+                            setActiveStep((prevActiveStep) => prevActiveStep + 1);
+                        }
+                    })
+                    .catch(() => {
+                        alert("Error: Invalid Entry")
+                    });
+                break;
+            case 2:
+                PasswordService.reset(userSub.email, userSub.verifyToken, userSub.newPassword)
+                    .then((res) => {
+                        if (res === 200) {
+                            setActiveStep((prevActiveStep) => prevActiveStep + 1);
+                        }
+                    })
+                    .catch(() => {
+                        alert("Error: Invalid Entry")
+                    });
+                break;
+            default:
+                setActiveStep(0);
+        }
     };
 
     const handleBackBrowser = () => {

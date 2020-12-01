@@ -11,13 +11,13 @@ const register = (user) => {
         phone: user.phone
     }
 
-    return axios.post(API_URL + "dispatcher", {"body": dispatcher}, {headers: ""})
+    return axios.post(API_URL + "dispatcher", dispatcher, {headers: ""})
         .then((response) => {
             return response.data;
         });
 };
 
-const login = (user) => {
+const login = (user) => { //
     const loginRequest = {
         email: user.email,
         password: user.password,
