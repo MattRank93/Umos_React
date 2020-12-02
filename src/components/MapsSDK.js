@@ -3,9 +3,11 @@ import GoogleMapReact from 'google-map-react';
 import axios from 'axios'
 import Marker from './Marker'
 
+
+
 class GoogleMapSDK extends Component {
     state = {
-        markers: [],
+        drivers: [],
         interval: ""
     }
 
@@ -31,11 +33,22 @@ class GoogleMapSDK extends Component {
                 "Authorization": this.props.token
             }})
             .then(res => {
-                const markers = res.data
-                console.log(markers)
-                this.setState({markers})
+                const drivers = res.data
+                drivers.forEach((driver) => {
+                    driver.show = false;
+                })
+                console.log(drivers)
+                this.setState({drivers: drivers})
             })
     }
+
+    onChildClickCallback = (key, driver) => {
+        this.setState((state) => {
+            const index = state.drivers.findIndex((e) => e.id === driver.driver.id);
+            state.drivers[index].show = !state.drivers[index].show; // eslint-disable-line no-param-reassign
+            return { drivers: state.drivers };
+        });
+    };
 
     componentDidMount() {
         this.intervalId = setInterval(this.updateMarkers.bind(this), 5000)
@@ -47,13 +60,16 @@ class GoogleMapSDK extends Component {
 
 
     render() {
-        const Markers = this.state.markers.map((marker, index) => (
+        const Markers = this.state.drivers.map((driver, index) => (
             <Marker
-                lat={marker.latitude}
-                lng={marker.longitude}
-                name={marker.firstname}
+                lat={driver.latitude}
+                lng={driver.longitude}
+                driver={driver}
+                show={driver.show}
             />
         ));
+
+
 
         return (
             // Important! Always set the container height explicitly
@@ -62,6 +78,7 @@ class GoogleMapSDK extends Component {
                     bootstrapURLKeys={{ key:"AIzaSyBKekm05H0Dxmt8ZboPyNgKqZKyYJ3Zfy8"}}
                     defaultCenter={this.props.center}
                     defaultZoom={this.props.zoom}
+                    onChildClick={this.onChildClickCallback}
                     options={{
                         styles: [
                             { elementType: "geometry", stylers: [{ color: "#242f3e" }] },
