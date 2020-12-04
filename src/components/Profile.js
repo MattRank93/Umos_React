@@ -29,7 +29,7 @@ const Profile = (props) => {
     };
 
     return (
-        <div className="container">
+        <div className="container" >
             <AppBar position="static">
                 <Toolbar>
                     <Grid

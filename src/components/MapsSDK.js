@@ -2,12 +2,15 @@ import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
 import axios from 'axios'
 import Marker from './Marker'
+import LocationMarker from "./LocationMarker";
+import InfoWindow from "./InfoWindow";
 
 
 
 class GoogleMapSDK extends Component {
     state = {
         drivers: [],
+        selectedLocMarker: [],
         interval: ""
     }
 
@@ -43,11 +46,22 @@ class GoogleMapSDK extends Component {
     }
 
     onChildClickCallback = (key, driver) => {
-        this.setState((state) => {
-            const index = state.drivers.findIndex((e) => e.id === driver.driver.id);
-            state.drivers[index].show = !state.drivers[index].show; // eslint-disable-line no-param-reassign
-            return { drivers: state.drivers };
-        });
+        console.log(driver.driver)
+        if (driver.driver !== undefined) {
+            this.setState((state) => {
+                const index = state.drivers.findIndex((e) => e.id === driver.driver.id);
+                state.drivers[index].show = !state.drivers[index].show; // eslint-disable-line no-param-reassign
+                return { drivers: state.drivers };
+            });
+        } else {
+            this.setState((state) => {
+                state.selectedLocMarker[0].show = !state.selectedLocMarker[0].show
+                return { selectedLocMarker: state.selectedLocMarker };
+            });
+        }
+
+
+
     };
 
     componentDidMount() {
@@ -57,6 +71,17 @@ class GoogleMapSDK extends Component {
     componentWillUnmount() {
         clearInterval(this.intervalId)
     }
+
+    onMapClicked = (map) => {
+        console.log(map);
+
+        const markerObj = [{
+            latitude: map.lat,
+            longitude: map.lng
+        }]
+
+        this.setState({selectedLocMarker: markerObj})
+    };
 
 
     render() {
@@ -69,101 +94,119 @@ class GoogleMapSDK extends Component {
             />
         ));
 
+        const LocationMarkers = this.state.selectedLocMarker.map((loc, index) => (
+                <LocationMarker
+                    lat={loc.latitude}
+                    lng={loc.longitude}
+                    location={loc}
+                    show={loc.show}
+                />
+            ));
+
 
 
         return (
             // Important! Always set the container height explicitly
             <div style={{ height: '93vh', width: '100%' }}>
-                <GoogleMapReact
-                    bootstrapURLKeys={{ key:"AIzaSyBKekm05H0Dxmt8ZboPyNgKqZKyYJ3Zfy8"}}
-                    defaultCenter={this.props.center}
-                    defaultZoom={this.props.zoom}
-                    onChildClick={this.onChildClickCallback}
-                    options={{
-                        styles: [
-                            { elementType: "geometry", stylers: [{ color: "#242f3e" }] },
-                            { elementType: "labels.text.stroke", stylers: [{ color: "#242f3e" }] },
-                            { elementType: "labels.text.fill", stylers: [{ color: "#746855" }] },
-                            {
-                                featureType: "administrative.locality",
-                                elementType: "labels.text.fill",
-                                stylers: [{ color: "#d59563" }]
-                            },
-                            {
-                                featureType: "poi",
-                                elementType: "labels.text.fill",
-                                stylers: [{ color: "#d59563" }]
-                            },
-                            {
-                                featureType: "poi.park",
-                                elementType: "geometry",
-                                stylers: [{ color: "#263c3f" }]
-                            },
-                            {
-                                featureType: "poi.park",
-                                elementType: "labels.text.fill",
-                                stylers: [{ color: "#6b9a76" }]
-                            },
-                            {
-                                featureType: "road",
-                                elementType: "geometry",
-                                stylers: [{ color: "#38414e" }]
-                            },
-                            {
-                                featureType: "road",
-                                elementType: "geometry.stroke",
-                                stylers: [{ color: "#212a37" }]
-                            },
-                            {
-                                featureType: "road",
-                                elementType: "labels.text.fill",
-                                stylers: [{ color: "#9ca5b3" }]
-                            },
-                            {
-                                featureType: "road.highway",
-                                elementType: "geometry",
-                                stylers: [{ color: "#746855" }]
-                            },
-                            {
-                                featureType: "road.highway",
-                                elementType: "geometry.stroke",
-                                stylers: [{ color: "#1f2835" }]
-                            },
-                            {
-                                featureType: "road.highway",
-                                elementType: "labels.text.fill",
-                                stylers: [{ color: "#f3d19c" }]
-                            },
-                            {
-                                featureType: "transit",
-                                elementType: "geometry",
-                                stylers: [{ color: "#2f3948" }]
-                            },
-                            {
-                                featureType: "transit.station",
-                                elementType: "labels.text.fill",
-                                stylers: [{ color: "#d59563" }]
-                            },
-                            {
-                                featureType: "water",
-                                elementType: "geometry",
-                                stylers: [{ color: "#17263c" }]
-                            },
-                            {
-                                featureType: "water",
-                                elementType: "labels.text.fill",
-                                stylers: [{ color: "#515c6d" }]
-                            },
-                            {
-                                featureType: "water",
-                                elementType: "labels.text.stroke",
-                                stylers: [{ color: "#17263c" }]
-                            }
-                        ]
-                    }}
-                >
-                    {Markers}
-                </GoogleMapReact>
+                {this.state.selectedLocMarker.length > 0 && <InfoWindow location={this.state.selectedLocMarker[0]} style={{position: 'relative', zIndex: 1}}/> }
+
+                <div style={{ height: '87%', width: '100%', position: 'absolute', left: '0', bottom: '0', zIndex: 0 }}>
+                    <GoogleMapReact
+                        bootstrapURLKeys={{ key:"AIzaSyBKekm05H0Dxmt8ZboPyNgKqZKyYJ3Zfy8"}}
+                        defaultCenter={this.props.center}
+                        defaultZoom={this.props.zoom}
+                        onChildClick={this.onChildClickCallback}
+                        onClick={this.onMapClicked}
+                        options={{
+                            styles: [
+                                { elementType: "geometry", stylers: [{ color: "#242f3e" }] },
+                                { elementType: "labels.text.stroke", stylers: [{ color: "#242f3e" }] },
+                                { elementType: "labels.text.fill", stylers: [{ color: "#746855" }] },
+                                {
+                                    featureType: "administrative.locality",
+                                    elementType: "labels.text.fill",
+                                    stylers: [{ color: "#d59563" }]
+                                },
+                                {
+                                    featureType: "poi",
+                                    elementType: "labels.text.fill",
+                                    stylers: [{ color: "#d59563" }]
+                                },
+                                {
+                                    featureType: "poi.park",
+                                    elementType: "geometry",
+                                    stylers: [{ color: "#263c3f" }]
+                                },
+                                {
+                                    featureType: "poi.park",
+                                    elementType: "labels.text.fill",
+                                    stylers: [{ color: "#6b9a76" }]
+                                },
+                                {
+                                    featureType: "road",
+                                    elementType: "geometry",
+                                    stylers: [{ color: "#38414e" }]
+                                },
+                                {
+                                    featureType: "road",
+                                    elementType: "geometry.stroke",
+                                    stylers: [{ color: "#212a37" }]
+                                },
+                                {
+                                    featureType: "road",
+                                    elementType: "labels.text.fill",
+                                    stylers: [{ color: "#9ca5b3" }]
+                                },
+                                {
+                                    featureType: "road.highway",
+                                    elementType: "geometry",
+                                    stylers: [{ color: "#746855" }]
+                                },
+                                {
+                                    featureType: "road.highway",
+                                    elementType: "geometry.stroke",
+                                    stylers: [{ color: "#1f2835" }]
+                                },
+                                {
+                                    featureType: "road.highway",
+                                    elementType: "labels.text.fill",
+                                    stylers: [{ color: "#f3d19c" }]
+                                },
+                                {
+                                    featureType: "transit",
+                                    elementType: "geometry",
+                                    stylers: [{ color: "#2f3948" }]
+                                },
+                                {
+                                    featureType: "transit.station",
+                                    elementType: "labels.text.fill",
+                                    stylers: [{ color: "#d59563" }]
+                                },
+                                {
+                                    featureType: "water",
+                                    elementType: "geometry",
+                                    stylers: [{ color: "#17263c" }]
+                                },
+                                {
+                                    featureType: "water",
+                                    elementType: "labels.text.fill",
+                                    stylers: [{ color: "#515c6d" }]
+                                },
+                                {
+                                    featureType: "water",
+                                    elementType: "labels.text.stroke",
+                                    stylers: [{ color: "#17263c" }]
+                                }
+                            ]
+                        }}
+                    >
+                        {LocationMarkers}
+                        {Markers}
+
+
+                    </GoogleMapReact>
+                </div>
+
             </div>
         );
     }

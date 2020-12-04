@@ -4,15 +4,13 @@ import {Grid} from "@material-ui/core";
 const InfoWindow = (props) => {
     const driver  = props.driver;
     const infoWindowStyle = {
-        position: 'relative',
-        bottom: 100,
+        position: 'absolute',
         left: '-35px',
         width: 220,
         backgroundColor: 'white',
         boxShadow: '0 2px 7px 1px rgba(0, 0, 0, 0.3)',
         padding: 10,
-        fontSize: 14,
-        zIndex: 100,
+        fontSize: 14
     };
 
     return (
@@ -20,6 +18,11 @@ const InfoWindow = (props) => {
             <Grid alignItems={'center'} direction={'column'} container>
                 <Grid item>
                     {driver.firstname} {driver.lastname}
+                </Grid>
+                <Grid item>
+                    {driver.phone}
+
+                    <hr />
                 </Grid>
                 <Grid item>
                     Lat: {driver.latitude}
