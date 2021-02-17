@@ -236,7 +236,7 @@ const Register = (props) => {
                     )}
                     <Grid container justify="left">
                         <Grid item>
-                            <Link href={"/PdAdmin"} variant="body2">
+                            <Link href={"/pdadminlogin"} variant="body2">
                                 Already have an admin account? Sign in
                             </Link>
 
@@ -245,7 +245,7 @@ const Register = (props) => {
                     </Grid>
                     <Grid container justify="right">
                         <Grid item>
-                            <Link href={"/"} variant="body2">
+                            <Link href={"/pduserlogin"} variant="body2">
                                 Already have an User account? Sign in
                             </Link>
                         </Grid>

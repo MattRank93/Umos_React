@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "https://help-spring-api.herokuapp.com/api/password/";
+const API_URL = "https://localhost:3007/api/password/";
 
 const forgot = (email) => {
     let body = {

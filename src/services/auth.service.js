@@ -1,9 +1,9 @@
 import axios from "axios";
 
-const API_URL = "https://help-spring-api.herokuapp.com/api/auth/";
+const API_URL = "http://helpapp.ddns.net:3007/api/auth/";
 
 const register = (user) => {
-    const dispatcher = {
+    const pdAdmin = {
         firstname: user.firstName,
         lastname: user.lastName,
         email: user.email,
@@ -11,19 +11,19 @@ const register = (user) => {
         phone: user.phone
     }
 
-    return axios.post(API_URL + "dispatcher", dispatcher, {headers: ""})
+    return axios.post(API_URL + "pdadmin", pdAdmin, {headers: ""})
         .then((response) => {
             return response.data;
         });
 };
-
+// PdAdmin
 const login = (user) => { //
     const loginRequest = {
         email: user.email,
         password: user.password,
     }
 
-    return axios.post(API_URL + "login", loginRequest, {headers: {}})
+    return axios.post(API_URL + "login" , loginRequest, {headers: {}})
         .then((response) => {
             if (response.data.token) {
                 localStorage.setItem("user", JSON.stringify(response.data));
@@ -32,6 +32,23 @@ const login = (user) => { //
             return response.data;
         });
 };
+
+// const PdAdminlogin = (user) => { //
+//     const loginRequest = {
+//         email: user.email,
+//         password: user.password,
+//     }
+//
+//     return axios.post(API_URL + "pdadmin" , loginRequest, {headers: {}})
+//         .then((response) => {
+//             if (response.data.token) {
+//                 localStorage.setItem("user", JSON.stringify(response.data));
+//             }
+//
+//             return response.data;
+//         });
+// };
+
 
 const logout = () => {
     localStorage.removeItem("user");
@@ -46,4 +63,5 @@ export default {
     login,
     logout,
     getCurrentUser,
+    // PdAdminlogin,
 };
