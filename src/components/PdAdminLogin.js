@@ -18,8 +18,9 @@ import Typography from '@material-ui/core/Typography';
 import {makeStyles} from '@material-ui/core/styles';
 import {login} from "../actions/auth";
 import Image from "../Image";
-import {AppBar, Toolbar} from "@material-ui/core";
+import {AppBar, Container, Toolbar} from "@material-ui/core";
 import IconButton from "@material-ui/core/IconButton";
+import {Contactless} from "@material-ui/icons";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -126,7 +127,7 @@ const PdAdminLogin = (props) => {
 
                 </Toolbar>
             </AppBar>
-            <Grid container className={classes.root} alignItems={'center'} justify={'center'}>
+            <Grid container className={classes.root} alignItems={'center'} justify={'center'} >
                 <CssBaseline/>
                 <Grid item component={Paper} elevation={6} square>
                     <div className={classes.paper}>
@@ -190,7 +191,7 @@ const PdAdminLogin = (props) => {
 
 
                                     {message && (
-                                        <div className="form-group">
+                                        <div className="form-group">//TODO: add link to appropriate login page.
                                             <div className="alert alert-danger" role="alert">
                                                 {message}
                                             </div>

@@ -21,6 +21,7 @@ const login = (user) => { //
     const loginRequest = {
         email: user.email,
         password: user.password,
+        role: "ROLE_PDADMIN"
     }
 
     return axios.post(API_URL + "login" , loginRequest, {headers: {}})
