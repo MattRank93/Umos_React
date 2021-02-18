@@ -1,17 +1,9 @@
 import axios from "axios";
 
-const API_URL = "https://help-spring-api.herokuapp.com/api/auth/";
+const API_URL = "http://helpapp.ddns.net:3007/api/auth/";
 
-const register = (user) => {
-    const dispatcher = {
-        firstname: user.firstName,
-        lastname: user.lastName,
-        email: user.email,
-        password: user.password,
-        phone: user.phone
-    }
-
-    return axios.post(API_URL + "dispatcher", dispatcher, {headers: ""})
+const register = (submit) => {
+    return axios.post(API_URL + "tcadmin", submit, {headers: ""})
         .then((response) => {
             return response.data;
         });
@@ -21,6 +13,7 @@ const login = (user) => { //
     const loginRequest = {
         email: user.email,
         password: user.password,
+        role: "ROLE_TCADMIN"
     }
 
     return axios.post(API_URL + "login", loginRequest, {headers: {}})

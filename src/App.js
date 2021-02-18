@@ -4,15 +4,16 @@ import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 
 import "./App.css";
 
-import Login from "./components/Login";
-import Register from "./components/Register";
+import Login from "./views/Login";
+import Register from "./views/Register";
 import Profile from "./components/Profile";
-import Home from "./components/Home"
+import Home from "./views/Home"
 import ResetPassword from "./components/ResetPassword";
 import {clearMessage} from "./actions/message";
 import {history} from "./helpers/history";
 import PrivateRoute from "./PrivateRoute";
 import GoogleMapSDK from "./components/MapsSDK";
+import Navigation from "./components/home/Navigation";
 
 const App = () => {
   const { user: currentUser } = useSelector((state) => state.auth);

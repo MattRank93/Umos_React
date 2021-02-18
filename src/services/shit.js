@@ -10,7 +10,7 @@
 // import './App.css';
 // import ReactDOM from 'react-dom';
 // import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
-// import Home from './Home';
+// import home from './home';
 // import About from './About';
 // import Contact from './Contact';
 // import Form from "react-validation/build/form";
