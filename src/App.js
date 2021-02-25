@@ -4,17 +4,15 @@ import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 
 import "./App.css";
 
-import PdUserLogin from "./components/PdUserLogin";
-import PdAdminLogin from "./components/PdAdminLogin";
-import Register from "./components/Register";
-import PdAdminRegister from "./components/PdAdminRegister";
-import Profile from "./components/Profile";
-import Home from "./components/Home"
-import ResetPassword from "./components/ResetPassword";
+import LoginTCA from "./views/tc/LoginTCA";
+import HomeTCA from "./views/tc/HomeTCA";
 import {clearMessage} from "./actions/message";
 import {history} from "./helpers/history";
 import PrivateRoute from "./PrivateRoute";
-import GoogleMapSDK from "./components/MapsSDK";
+import Enter from "./views/Enter";
+import ResetPasswordTCA from "./views/tc/ResetPasswordTCA";
+import RegisterTCA from "./views/tc/RegisterTCA";
+
 
 const App = () => {
   const { user: currentUser } = useSelector((state) => state.auth);
@@ -29,15 +27,15 @@ const App = () => {
   return (
       <Router>
             <Switch>
-              <Route exact path={"/pduserlogin"} component={PdUserLogin}/>
-              <Route exact path= {"/pdadminlogin"} component={PdAdminLogin} />
-              <Route exact path= {"/register"} component={Register} />
-              <Route exact path= {"/pdadminregister"} component={PdAdminRegister} />
-              {/*<Route exact path= {"/pdadminportal"} component={PdRegister} />*/}
-              <Route exact path= {"/forgot"} component={ResetPassword} />
-              <Route exact path= {"/home"} component={Home} />
-              <PrivateRoute path= {"/maps"} loggedIn={currentUser} component={GoogleMapSDK}  />
-              <PrivateRoute path= {"/profile"} loggedIn={currentUser} component={Profile}  />
+              <Route exact path={"/"} component={Enter}/>
+              <Route exact path= {"/tc"} component={LoginTCA}/>
+              <Route exact path= {"/tc/forgot"} component={ResetPasswordTCA}/>
+              <Route exact path= {"/tc/register"} component={RegisterTCA}/>
+              <PrivateRoute exact path= {"/tc/home"} loggedIn={currentUser} component={HomeTCA}/>
+              {/*<Route exact path= {"/pd"} component={LoginTCA}/>*/}
+              {/*<Route exact path= {"/pd/forgot"} component={ResetPasswordTCA}/>*/}
+              {/*<Route exact path= {"/pd/register"} component={RegisterTCA}/>*/}
+              {/*<PrivateRoute path= {"/pd/home"} loggedIn={currentUser} component={HomeTCA}/>*/}
             </Switch>
       </Router>
   );

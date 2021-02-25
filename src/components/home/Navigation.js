@@ -60,7 +60,7 @@ const Navigation = (props) => {
             {/*<FormGroup>*/}
             {/*    <FormControlLabel*/}
             {/*        control={<Switch checked={auth} onChange={handleChange} aria-label="login switch" />}*/}
-            {/*        label={auth ? 'Logout' : 'Login'}*/}
+            {/*        label={auth ? 'Logout' : 'LoginTCA'}*/}
             {/*    />*/}
             {/*</FormGroup>*/}
             <AppBar position="static">

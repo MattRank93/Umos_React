@@ -7,7 +7,7 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import IconButton from "@material-ui/core/IconButton";
 import Grid from "@material-ui/core/Grid";
 import {useDispatch} from "react-redux";
-import {logout} from "../actions/auth";
+import {logout} from "../../actions/auth";
 import {Dialog, DialogActions, DialogContent, DialogTitle, DialogContentText} from "@material-ui/core";
 
 
@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export default function PopoverButton(props) {
+export default function PopOverButton(props) {
     const dispatch = useDispatch();
     const user = props.user
 

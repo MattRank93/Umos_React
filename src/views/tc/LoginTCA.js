@@ -2,12 +2,12 @@ import React, {useState} from "react";
 import {makeStyles} from "@material-ui/core/styles";
 import {Button, Card, CssBaseline, Grid, InputAdornment, TextField} from "@material-ui/core";
 import Container from "@material-ui/core/Container";
-import Navigation from "../components/home/Navigation";
-import logo from "../assets/HELPLOGO.png"
+import Navigation from "../../components/home/Navigation";
+import logo from "../../assets/HELPLOGO.png"
 import LockIcon from "@material-ui/icons/Lock";
 import EmailIcon from "@material-ui/icons/Email";
 import {useDispatch, useSelector} from "react-redux";
-import {login} from "../actions/auth";
+import {login} from "../../actions/auth";
 import {Redirect} from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const Login = (props) => {
+const LoginTCA = (props) => {
     const classes = useStyles();
     const dispatch = useDispatch();
     const {isLoggedIn} = useSelector(state => state.auth);
@@ -91,13 +91,7 @@ const Login = (props) => {
                                             required
                                             value={submit.email}
                                             onChange={handleChange}
-                                                   InputProps={{
-                                                       startAdornment: (
-                                                           <InputAdornment position="start">
-                                                               <EmailIcon/>
-                                                           </InputAdornment>
-                                                       ),
-                                                   }}/>
+                                        />
                                     </Grid>
                                     <Grid item align="center">
                                         <TextField
@@ -112,13 +106,7 @@ const Login = (props) => {
                                             required
                                             value={submit.password}
                                             onChange={handleChange}
-                                                   InputProps={{
-                                                       startAdornment: (
-                                                           <InputAdornment position="start">
-                                                               <LockIcon/>
-                                                           </InputAdornment>
-                                                       ),
-                                                   }}/>
+                                        />
                                     </Grid>
                                     <Grid item align="center">
                                         <Button color="primary" fullWidth type="submit" variant="contained">
@@ -135,4 +123,4 @@ const Login = (props) => {
     )
 }
 
-export default Login;
+export default LoginTCA;

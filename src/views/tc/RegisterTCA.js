@@ -8,10 +8,10 @@ import EmailIcon from '@material-ui/icons/Email';
 import LockIcon from '@material-ui/icons/Lock';
 import PhoneIcon from '@material-ui/icons/Phone';
 import BusinessIcon from '@material-ui/icons/Business';
-import Navigation from "../components/home/Navigation";
-import logo from "../assets/HELPLOGO.png"
+import Navigation from "../../components/home/Navigation";
+import logo from "../../assets/HELPLOGO.png"
 import {useDispatch} from "react-redux";
-import AuthService from "../services/auth.service";
+import AuthService from "../../services/auth.service";
 
 const useStyles = makeStyles((theme) => ({
     media: {
@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const Register = (props) => {
+const RegisterTCA = (props) => {
     const classes = useStyles();
     const dispatch = useDispatch();
 
@@ -55,6 +55,7 @@ const Register = (props) => {
     }
 
     const handleRegister = (e) => {
+        e.preventDefault();
         AuthService.register(submit).then(
             (response) => {
                 console.log(response)
@@ -99,13 +100,7 @@ const Register = (props) => {
                                             required
                                             value={submit.firstname}
                                             onChange={handleChange}
-                                            InputProps={{
-                                                startAdornment: (
-                                                    <InputAdornment position="start">
-                                                        <FaceIcon/>
-                                                    </InputAdornment>
-                                                ),
-                                            }}/>
+                                        />
                                     </Grid>
                                     <Grid item align="center">
                                         <TextField
@@ -120,13 +115,7 @@ const Register = (props) => {
                                             required
                                             value={submit.lastname}
                                             onChange={handleChange}
-                                            InputProps={{
-                                                startAdornment: (
-                                                    <InputAdornment position="start">
-                                                        <GroupIcon/>
-                                                    </InputAdornment>
-                                                ),
-                                            }}/>
+                                        />
                                     </Grid>
                                     <Grid item align="center">
                                         <TextField
@@ -141,13 +130,7 @@ const Register = (props) => {
                                             required
                                             value={submit.email}
                                             onChange={handleChange}
-                                            InputProps={{
-                                                startAdornment: (
-                                                    <InputAdornment position="start">
-                                                        <EmailIcon/>
-                                                    </InputAdornment>
-                                                ),
-                                            }}/>
+                                        />
                                     </Grid>
                                     <Grid item align="center">
                                         <TextField
@@ -162,13 +145,7 @@ const Register = (props) => {
                                             required
                                             value={submit.password}
                                             onChange={handleChange}
-                                            InputProps={{
-                                                startAdornment: (
-                                                    <InputAdornment position="start">
-                                                        <LockIcon/>
-                                                    </InputAdornment>
-                                                ),
-                                            }}/>
+                                        />
                                     </Grid>
                                     <Grid item align="center">
                                         <TextField
@@ -183,13 +160,7 @@ const Register = (props) => {
                                             required
                                             value={submit.password}
                                             onChange={handleChange}
-                                            InputProps={{
-                                                startAdornment: (
-                                                    <InputAdornment position="start">
-                                                        <LockIcon/>
-                                                    </InputAdornment>
-                                                ),
-                                            }}/>
+                                        />
                                     </Grid>
                                     <Grid item align="center">
                                         <TextField
@@ -204,13 +175,7 @@ const Register = (props) => {
                                             required
                                             value={submit.phone}
                                             onChange={handleChange}
-                                            InputProps={{
-                                                startAdornment: (
-                                                    <InputAdornment position="start">
-                                                        <PhoneIcon/>
-                                                    </InputAdornment>
-                                                ),
-                                            }}/>
+                                        />
                                     </Grid>
                                     <Grid item align="center">
                                         <TextField
@@ -225,13 +190,7 @@ const Register = (props) => {
                                             required
                                             value={submit.company}
                                             onChange={handleChange}
-                                            InputProps={{
-                                                startAdornment: (
-                                                    <InputAdornment position="start">
-                                                        <BusinessIcon/>
-                                                    </InputAdornment>
-                                                ),
-                                            }}/>
+                                        />
                                     </Grid>
                                     <Grid item align="center">
                                         <Button color="primary" fullWidth type="submit" variant="contained">
@@ -248,4 +207,4 @@ const Register = (props) => {
     )
 }
 
-export default Register;
+export default RegisterTCA;

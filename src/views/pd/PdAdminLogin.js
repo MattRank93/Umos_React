@@ -16,7 +16,7 @@ import Grid from '@material-ui/core/Grid';
 import PolicyTwoToneIcon from '@material-ui/icons/PolicyTwoTone';
 import Typography from '@material-ui/core/Typography';
 import {makeStyles} from '@material-ui/core/styles';
-import {login} from "../actions/auth";
+import {login} from "../../actions/auth";
 import Image from "../Image";
 import {AppBar, Container, Toolbar} from "@material-ui/core";
 import IconButton from "@material-ui/core/IconButton";

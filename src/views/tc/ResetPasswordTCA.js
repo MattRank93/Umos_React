@@ -12,7 +12,7 @@ import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import StepContent from "@material-ui/core/StepContent";
-import PasswordService, {forgot, reset, verify} from "../services/password.service"
+import PasswordService, {forgot, reset, verify} from "../../services/password.service"
 import {useDispatch} from "react-redux";
 import Form from "react-validation/build/form";
 
@@ -56,7 +56,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const ResetPassword = (props) => {
+const ResetPasswordTCA = (props) => {
 
     const [userSub, setUserSub] = useState({
         email: '',
@@ -272,4 +272,4 @@ const ResetPassword = (props) => {
     );
 }
 
-export default ResetPassword;
+export default ResetPasswordTCA;

@@ -10,7 +10,7 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
-import PopoverButton from "../elements/popoverbutton";
+import PopOverButton from "./tc/PopOverButton";
 import GoogleMapSDK from "./MapsSDK";
 
 
@@ -24,10 +24,6 @@ const Profile = (props) => {
         dispatch(logout());
     };
 
-    const maps = () => {
-        props.history.push('/maps')
-    };
-
     return (
         <div className="container" >
             <AppBar position="static">
@@ -38,11 +34,10 @@ const Profile = (props) => {
                         spacing={24}
                     >
                         <Typography variant="h6" >HELP Dashboard</Typography>
-                        <PopoverButton user={user} />
+                        <PopOverButton user={user} />
                     </Grid>
                 </Toolbar>
             </AppBar>
-            <GoogleMapSDK token={user.token}/>
         </div>
     );
 };

@@ -3,7 +3,7 @@ import Form from "react-validation/build/form";
 import CheckButton from "react-validation/build/button";
 import {isEmail} from "validator";
 
-import AuthService from "../services/auth.service";
+import AuthService from "../../services/auth.service";
 import {makeStyles} from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
@@ -14,7 +14,6 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import Avatar from "@material-ui/core/Avatar";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
-import {Copyright} from "../elements/copyright";
 import Box from "@material-ui/core/Box";
 import Image from "../Image";
 
@@ -266,7 +265,6 @@ const Register = (props) => {
                 </Form>
             </div>
             <Box mt={5}>
-                <Copyright/>
             </Box>
         </Container>
     );
