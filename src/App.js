@@ -4,16 +4,17 @@ import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 
 import "./App.css";
 
-import Login from "./views/Login";
-import Register from "./views/Register";
+import PdUserLogin from "./components/PdUserLogin";
+import PdAdminLogin from "./components/PdAdminLogin";
+import Register from "./components/Register";
+import PdAdminRegister from "./components/PdAdminRegister";
 import Profile from "./components/Profile";
-import Home from "./views/Home"
+import Home from "./components/Home"
 import ResetPassword from "./components/ResetPassword";
 import {clearMessage} from "./actions/message";
 import {history} from "./helpers/history";
 import PrivateRoute from "./PrivateRoute";
 import GoogleMapSDK from "./components/MapsSDK";
-import Navigation from "./components/home/Navigation";
 
 const App = () => {
   const { user: currentUser } = useSelector((state) => state.auth);
@@ -28,8 +29,11 @@ const App = () => {
   return (
       <Router>
             <Switch>
-              <Route exact path={"/"} component={Login}/>
+              <Route exact path={"/pduserlogin"} component={PdUserLogin}/>
+              <Route exact path= {"/pdadminlogin"} component={PdAdminLogin} />
               <Route exact path= {"/register"} component={Register} />
+              <Route exact path= {"/pdadminregister"} component={PdAdminRegister} />
+              {/*<Route exact path= {"/pdadminportal"} component={PdRegister} />*/}
               <Route exact path= {"/forgot"} component={ResetPassword} />
               <Route exact path= {"/home"} component={Home} />
               <PrivateRoute path= {"/maps"} loggedIn={currentUser} component={GoogleMapSDK}  />
