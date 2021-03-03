@@ -1,17 +1,12 @@
 import React, {useState} from "react";
 import {makeStyles} from "@material-ui/core/styles";
-import {Button, Card, CssBaseline, Grid, InputAdornment, TextField} from "@material-ui/core";
+import {Button, Card, CssBaseline, Grid, Hidden, TextField} from "@material-ui/core";
 import Container from "@material-ui/core/Container";
-import FaceIcon from '@material-ui/icons/Face';
-import GroupIcon from '@material-ui/icons/Group';
-import EmailIcon from '@material-ui/icons/Email';
-import LockIcon from '@material-ui/icons/Lock';
-import PhoneIcon from '@material-ui/icons/Phone';
-import BusinessIcon from '@material-ui/icons/Business';
 import Navigation from "../components/home/Navigation";
 import logo from "../assets/HELPLOGO.png"
 import {useDispatch} from "react-redux";
 import AuthService from "../services/auth.service";
+import FormTA from "../components/register/RegisterFormTA";
 
 const useStyles = makeStyles((theme) => ({
     media: {
@@ -21,10 +16,19 @@ const useStyles = makeStyles((theme) => ({
         display: "block",
         padding: 0,
     },
+    button: {
+        height: 50
+    },
     infoBoxSm: {
         borderRadius: 15,
         padding: 25,
         boxShadow: "0px 0px 20px rgb(0, 0, 0, 0.2)",
+    },
+    infoBoxXs: {
+        flexGrow: 1,
+        padding: 30,
+        paddingLeft: 40,
+        paddingRight: 40,
     },
     div: {
         flexGrow: 1,
@@ -55,6 +59,7 @@ const Register = (props) => {
     }
 
     const handleRegister = (e) => {
+        e.preventDefault();
         AuthService.register(submit).then(
             (response) => {
                 console.log(response)
@@ -77,172 +82,45 @@ const Register = (props) => {
             <CssBaseline/>
             <main>
                 <Navigation register/>
-                <div className={classes.div}>
-                    <Container>
-                        <Card className={classes.infoBoxSm}>
+
+                <Hidden xsDown>
+                    <div className={classes.div}>
+                        <Container>
+                            <Card className={classes.infoBoxSm}>
+                                <form onSubmit={handleRegister}>
+                                    <FormTA
+                                        firstname={submit.firstname}
+                                        lastname={submit.lastname}
+                                        email={submit.email}
+                                        password={submit.password}
+                                        phone={submit.phone}
+                                        company={submit.company}
+                                        handleChange={handleChange}
+                                    />
+                                </form>
+                            </Card>
+                        </Container>
+                    </div>
+                </Hidden>
+
+                <Hidden smUp>
+                    <div className={classes.infoBoxXs}>
+                        <Container>
                             <form onSubmit={handleRegister}>
-                                <Grid container justify={'center'} direction={'column'}
-                                      spacing={2}>
-                                    <Grid item align="center">
-                                        <img src={logo} alt="Logo" height={40}/>
-                                    </Grid>
-                                    <Grid item align="center">
-                                        <TextField
-                                            fullWidth
-                                            id="firstname"
-                                            name="firstname"
-                                            type="text"
-                                            label="First Name"
-                                            variant="outlined"
-                                            autoComplete="firstname"
-                                            autoFocus
-                                            required
-                                            value={submit.firstname}
-                                            onChange={handleChange}
-                                            InputProps={{
-                                                startAdornment: (
-                                                    <InputAdornment position="start">
-                                                        <FaceIcon/>
-                                                    </InputAdornment>
-                                                ),
-                                            }}/>
-                                    </Grid>
-                                    <Grid item align="center">
-                                        <TextField
-                                            fullWidth
-                                            id="lastname"
-                                            name="lastname"
-                                            type="text"
-                                            label="Last Name"
-                                            variant="outlined"
-                                            autoComplete="lastname"
-                                            autoFocus
-                                            required
-                                            value={submit.lastname}
-                                            onChange={handleChange}
-                                            InputProps={{
-                                                startAdornment: (
-                                                    <InputAdornment position="start">
-                                                        <GroupIcon/>
-                                                    </InputAdornment>
-                                                ),
-                                            }}/>
-                                    </Grid>
-                                    <Grid item align="center">
-                                        <TextField
-                                            fullWidth
-                                            id="email"
-                                            name="email"
-                                            type="text"
-                                            label="Email Address"
-                                            variant="outlined"
-                                            autoComplete="email"
-                                            autoFocus
-                                            required
-                                            value={submit.email}
-                                            onChange={handleChange}
-                                            InputProps={{
-                                                startAdornment: (
-                                                    <InputAdornment position="start">
-                                                        <EmailIcon/>
-                                                    </InputAdornment>
-                                                ),
-                                            }}/>
-                                    </Grid>
-                                    <Grid item align="center">
-                                        <TextField
-                                            fullWidth
-                                            id="password"
-                                            name="password"
-                                            type="password"
-                                            label="Password"
-                                            variant="outlined"
-                                            autoComplete="password"
-                                            autoFocus
-                                            required
-                                            value={submit.password}
-                                            onChange={handleChange}
-                                            InputProps={{
-                                                startAdornment: (
-                                                    <InputAdornment position="start">
-                                                        <LockIcon/>
-                                                    </InputAdornment>
-                                                ),
-                                            }}/>
-                                    </Grid>
-                                    <Grid item align="center">
-                                        <TextField
-                                            fullWidth
-                                            id="password"
-                                            name="password"
-                                            type="password"
-                                            label="Password"
-                                            variant="outlined"
-                                            autoComplete="password"
-                                            autoFocus
-                                            required
-                                            value={submit.password}
-                                            onChange={handleChange}
-                                            InputProps={{
-                                                startAdornment: (
-                                                    <InputAdornment position="start">
-                                                        <LockIcon/>
-                                                    </InputAdornment>
-                                                ),
-                                            }}/>
-                                    </Grid>
-                                    <Grid item align="center">
-                                        <TextField
-                                            fullWidth
-                                            id="phone"
-                                            name="phone"
-                                            type="text"
-                                            label="Phone Number"
-                                            variant="outlined"
-                                            autoComplete="phone"
-                                            autoFocus
-                                            required
-                                            value={submit.phone}
-                                            onChange={handleChange}
-                                            InputProps={{
-                                                startAdornment: (
-                                                    <InputAdornment position="start">
-                                                        <PhoneIcon/>
-                                                    </InputAdornment>
-                                                ),
-                                            }}/>
-                                    </Grid>
-                                    <Grid item align="center">
-                                        <TextField
-                                            fullWidth
-                                            id="company"
-                                            name="company"
-                                            type="text"
-                                            label="Company"
-                                            variant="outlined"
-                                            autoComplete="company"
-                                            autoFocus
-                                            required
-                                            value={submit.company}
-                                            onChange={handleChange}
-                                            InputProps={{
-                                                startAdornment: (
-                                                    <InputAdornment position="start">
-                                                        <BusinessIcon/>
-                                                    </InputAdornment>
-                                                ),
-                                            }}/>
-                                    </Grid>
-                                    <Grid item align="center">
-                                        <Button color="primary" fullWidth type="submit" variant="contained">
-                                            Register
-                                        </Button>
-                                    </Grid>
-                                </Grid>
+                                <FormTA
+                                    firstname={submit.firstname}
+                                    lastname={submit.lastname}
+                                    email={submit.email}
+                                    password={submit.password}
+                                    phone={submit.phone}
+                                    company={submit.company}
+                                    handleChange={handleChange}
+                                />
                             </form>
-                        </Card>
-                    </Container>
-                </div>
+                        </Container>
+                    </div>
+                </Hidden>
+
             </main>
         </React.Fragment>
     )

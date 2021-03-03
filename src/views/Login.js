@@ -1,11 +1,9 @@
 import React, {useState} from "react";
 import {makeStyles} from "@material-ui/core/styles";
-import {Button, Card, CssBaseline, Grid, InputAdornment, TextField} from "@material-ui/core";
+import {Button, Card, CssBaseline, Grid, TextField} from "@material-ui/core";
 import Container from "@material-ui/core/Container";
 import Navigation from "../components/home/Navigation";
 import logo from "../assets/HELPLOGO.png"
-import LockIcon from "@material-ui/icons/Lock";
-import EmailIcon from "@material-ui/icons/Email";
 import {useDispatch, useSelector} from "react-redux";
 import {login} from "../actions/auth";
 import {Redirect} from "react-router-dom";
@@ -17,6 +15,15 @@ const useStyles = makeStyles((theme) => ({
         width: "100%",
         display: "block",
         padding: 0,
+    },
+    infoBoxXs: {
+        flexGrow: 1,
+        padding: 30,
+        paddingLeft: 40,
+        paddingRight: 40,
+    },
+    button: {
+      height: 50
     },
     infoBoxSm: {
         borderRadius: 15,
@@ -91,13 +98,7 @@ const Login = (props) => {
                                             required
                                             value={submit.email}
                                             onChange={handleChange}
-                                                   InputProps={{
-                                                       startAdornment: (
-                                                           <InputAdornment position="start">
-                                                               <EmailIcon/>
-                                                           </InputAdornment>
-                                                       ),
-                                                   }}/>
+                                        />
                                     </Grid>
                                     <Grid item align="center">
                                         <TextField
@@ -112,16 +113,15 @@ const Login = (props) => {
                                             required
                                             value={submit.password}
                                             onChange={handleChange}
-                                                   InputProps={{
-                                                       startAdornment: (
-                                                           <InputAdornment position="start">
-                                                               <LockIcon/>
-                                                           </InputAdornment>
-                                                       ),
-                                                   }}/>
+                                        />
                                     </Grid>
                                     <Grid item align="center">
-                                        <Button color="primary" fullWidth type="submit" variant="contained">
+                                        <Button
+                                            color="primary"
+                                            fullWidth
+                                            type="submit"
+                                            className={classes.button}
+                                            variant="contained">
                                             Sign In
                                         </Button>
                                     </Grid>
