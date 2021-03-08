@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
 
 const HomeTCA = (props) => {
     const classes = useStyles();
-    const link = "http://localhost:3007/api"
+    const link = "http://72.131.85.29:3007/api/"
 
     const [selectedFiles, setSelectedFiles] = useState(undefined);
     const [currentFile, setCurrentFile] = useState(undefined);
@@ -103,35 +103,59 @@ const HomeTCA = (props) => {
     const [joinRes, setJoinRes] = useState(null)
     const [errorRes, setErrorRes] = useState(null)
 
-    const socket = sockJs('http://localhost:3007/api/help/')
-    const client = Stomp.over(socket)
+    let socket = null;
+    let client = null;
     const token = JSON.parse(localStorage.getItem("user")).token
+    let shortName = "";
 
     const stompConnect = async () => {
-        const socket = sockJs('http://localhost:3007/api/help/')
-        const client = Stomp.over(socket)
+        socket = sockJs(`${link}help/`)
+        client = Stomp.over(socket)
 
-        client.connect({"Authorization": token}, function (frame) {
-            console.log(frame + "")
-            client.subscribe(
-                "/topic/guestnames",
-                function (frame2) {
-                    setConnectRes(frame)
-                    console.log(frame2 + "")
-                },
-                {"Authorization": token})
-        }, (err) => {
-            console.log(err)
+        client.connect({'Authorization' : token}, (frame) => {
+            // Tell user that it is connected
+            console.log(`Connected: ` + frame)
+
+            client.subscribe('/topic/guestnames', (greeting) => {
+                showJoinedName(JSON.parse(greeting.body).content);
+            });
+
+            client.subscribe('/topic/guestchats', (greeting) => {
+                showMessage(JSON.parse(greeting.body).content);
+            });
+
+            client.subscribe('/topic/guestupdates', (greeting) => {
+                showTyping(JSON.parse(greeting.body).content);
+            });
+
+            client.subscribe('topic/errors', (greeting) => {
+                showErrors(JSON.parse(greeting.body).content);
+            });
+
+            sendName();
         })
     }
 
-    const sender = async () => {
-        client.send(
-            "/app/guestjoin",
-            {},
-            {message: 'hello'},
-        )
-    };
+    const showErrors = (message) => {
+        console.log(`Errors: ${message}`)
+    }
+
+    const showTyping = (message) => {
+        console.log('Someone is typing...');
+    }
+
+    const showJoinedName = (message) => {
+        shortName = message;
+        console.log(shortName + ' just joined!');
+    }
+
+    const showMessage = (message) => {
+        console.log(`Most recent message: ${message}`);
+    }
+
+    const sendName = () => {
+        client.send("/app/guestjoin", {}, JSON.stringify({'message': JSON.parse(localStorage.getItem("user")).firstname}));
+    }
 
     const update = async () => {
         client.connect({"Authorization": token}, function (frame) {
@@ -235,7 +259,7 @@ const HomeTCA = (props) => {
                                     />
                                 </Grid>
                                 <Grid item>
-                                    <Button variant="contained" color="primary" component="span" onClick={sender}>
+                                    <Button variant="contained" color="primary" component="span" onClick={() => {console.log("fuck you")}}>
                                         sender
                                     </Button>
                                     <TextField variant="filled" style={{flex: 1, paddingLeft: 10, paddingRight: 10}}>
