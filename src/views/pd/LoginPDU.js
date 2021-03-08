@@ -69,7 +69,7 @@ const required = (value) => {
     }
 };
 
-const PdUserLogin = (props) => {
+const LoginPDU = (props) => {
     const form = useRef();
     const checkBtn = useRef();
     const [loading, setLoading] = useState(false);
@@ -142,7 +142,7 @@ const PdUserLogin = (props) => {
                                         required
                                         fullWidth
                                         id="userlogin"
-                                        label="User PdUserLogin"
+                                        label="User LoginPDU"
                                         name="email"
                                         autoComplete="username"
                                         autoFocus
@@ -188,4 +188,4 @@ const PdUserLogin = (props) => {
     );
 }
 
-export default PdUserLogin;
+export default LoginPDU;

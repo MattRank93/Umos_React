@@ -18,10 +18,10 @@ export const register = (submit) => (dispatch) => {
 
       dispatch({
         type: SET_MESSAGE,
-        payload: response.data.message,
+        payload: 'User Registered'
       });
 
-      return Promise.resolve();
+      return Promise.resolve('User Registered');
     },
     (error) => {
       const message =
@@ -30,6 +30,7 @@ export const register = (submit) => (dispatch) => {
           error.response.data.message) ||
         error.message ||
         error.toString();
+
 
       dispatch({
         type: REGISTER_FAIL,
@@ -40,13 +41,13 @@ export const register = (submit) => (dispatch) => {
         payload: message,
       });
 
-      return Promise.reject();
+      return Promise.reject("Register Failed")
     }
   );
 };
 
-export const login = (email, password) => (dispatch) => {
-  return AuthService.login(email, password).then(
+export const login = (loginRequest) => (dispatch) => {
+  return AuthService.login(loginRequest).then(
     (data) => {
       dispatch({
         type: LOGIN_SUCCESS,
@@ -56,6 +57,7 @@ export const login = (email, password) => (dispatch) => {
       return Promise.resolve();
     },
     (error) => {
+
       const message =
         (error.response &&
           error.response.data &&
@@ -72,7 +74,7 @@ export const login = (email, password) => (dispatch) => {
         payload: message,
       });
 
-      return Promise.reject();
+      return Promise.reject("Login Failed")
     }
   );
 };

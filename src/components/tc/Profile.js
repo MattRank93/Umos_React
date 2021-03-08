@@ -1,17 +1,17 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import {useDispatch , connect} from "react-redux";
-import {logout} from "../actions/auth";
+import {logout} from "../../actions/auth";
 import {Button} from "@material-ui/core";
-import store from "../store"
+import store from "../../store"
 import {Redirect} from "react-router-dom";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
-import PopOverButton from "./tc/PopOverButton";
-import GoogleMapSDK from "./MapsSDK";
+import PopOverButton from "../old/PopOverButton";
+import GoogleMapSDK from "../old/MapsSDK";
 
 
 const Profile = (props) => {

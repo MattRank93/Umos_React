@@ -6,15 +6,14 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Paper from "@material-ui/core/Paper";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import StepContent from "@material-ui/core/StepContent";
 import PasswordService, {forgot, reset, verify} from "../../services/password.service"
-import {useDispatch} from "react-redux";
-import Form from "react-validation/build/form";
+import Navigation from "../../components/tc/Navigation";
+import Container from "@material-ui/core/Container";
+import {Card} from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -22,6 +21,19 @@ const useStyles = makeStyles((theme) => ({
     },
     appBar: {
         position: 'relative',
+    },
+    infoBoxSm: {
+        borderRadius: 15,
+        padding: 25,
+        boxShadow: "0px 0px 20px rgb(0, 0, 0, 0.2)",
+    },
+    div: {
+        flexGrow: 1,
+        position: 'absolute',
+        left: '50%',
+        width: 500,
+        top: '50%',
+        transform: 'translate(-50%, -50%)'
     },
     layout: {
         width: 'auto',
@@ -44,7 +56,7 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     stepper: {
-        padding: theme.spacing(3, 0, 5),
+        padding: theme.spacing(2, 0, 2),
     },
     buttons: {
         display: 'flex',
@@ -81,11 +93,11 @@ const ResetPasswordTCA = (props) => {
             case 0:
                 return (
                     <React.Fragment>
-                        <Typography variant="h6" gutterBottom>
+                        <Typography variant="h6">
                             Account Email
                         </Typography>
                         <Grid container spacing={3}>
-                            <Grid item xs={12} sm={6}>
+                            <Grid item xs={12} sm={12} md={12} lg={12}>
                                 <TextField
                                     variant="outlined"
                                     margin="normal"
@@ -200,75 +212,60 @@ const ResetPasswordTCA = (props) => {
         }
     };
 
-    const handleBackBrowser = () => {
-        props.history.push('/')
-    };
-
     const classes = useStyles();
 
     return (
-        <div className={classes.root}>
-            <React.Fragment>
-                <CssBaseline/>
-                <AppBar position="static" className={classes.appBar}>
-                    <Toolbar>
-                        <Grid
-                            justify="space-between" // Add it here :)
-                            container
-                            spacing={24}
-                        >
-                            <Button variant="contained" color="secondary" onClick={handleBackBrowser}>
-                                Back
-                            </Button>
-                            <Typography variant="h6" className={classes.title}>HELP Dashboard</Typography>
-                        </Grid>
-                    </Toolbar>
-                </AppBar>
-                <main className={classes.layout}>
-                    <Paper className={classes.paper}>
-                        <Typography component="h1" variant="h4" align="center">
-                            Reset Password
-                        </Typography>
-                        <Stepper activeStep={activeStep} className={classes.stepper} orientation="vertical">
-                            {steps.map((label, index) => (
-                                <Step key={label}>
-                                    <StepLabel>{label}</StepLabel>
-                                    <StepContent>
-                                        <Typography>{getStepContent(index)}</Typography>
-                                    </StepContent>
-                                </Step>
-                            ))}
-                        </Stepper>
-                        <React.Fragment>
-                            {activeStep === steps.length ? (
-                                <React.Fragment>
-                                    <Typography variant="h5" gutterBottom>
-                                        Password reset has completed.
-                                    </Typography>
-                                    <Typography variant="subtitle1">
-                                        Your password has been changed to the new password.
-                                        Thank you for using our service.
-                                    </Typography>
-                                </React.Fragment>
-                            ) : (
-                                <React.Fragment>
-                                    <div className={classes.buttons}>
-                                        <Button
-                                            variant="contained"
-                                            color="primary"
-                                            onClick={handleNext}
-                                            className={classes.button}
-                                        >
-                                            {activeStep === steps.length - 1 ? 'Change Password' : 'Next'}
-                                        </Button>
-                                    </div>
-                                </React.Fragment>
-                            )}
-                        </React.Fragment>
-                    </Paper>
-                </main>
-            </React.Fragment>
-        </div>
+        <React.Fragment>
+            <CssBaseline/>
+            <main>
+                <Navigation register/>
+                <div className={classes.div}>
+                    <Container>
+                        <Card className={classes.infoBoxSm}>
+                            <Typography variant={'h5'} style={{paddingBottom: 15}}>
+                                Reset Password
+                            </Typography>
+                            <Stepper activeStep={activeStep} className={classes.stepper} orientation="vertical">
+                                {steps.map((label, index) => (
+                                    <Step key={label}>
+                                        <StepLabel>{label}</StepLabel>
+                                        <StepContent>
+                                            <Typography>{getStepContent(index)}</Typography>
+                                        </StepContent>
+                                    </Step>
+                                ))}
+                            </Stepper>
+                            <React.Fragment>
+                                {activeStep === steps.length ? (
+                                    <React.Fragment>
+                                        <Typography variant="h5" gutterBottom>
+                                            Password reset has completed.
+                                        </Typography>
+                                        <Typography variant="subtitle1">
+                                            Your password has been changed to the new password.
+                                            Thank you for using our service.
+                                        </Typography>
+                                    </React.Fragment>
+                                ) : (
+                                    <React.Fragment>
+                                        <div className={classes.buttons}>
+                                            <Button
+                                                variant="contained"
+                                                color="primary"
+                                                onClick={handleNext}
+                                                className={classes.button}
+                                            >
+                                                {activeStep === steps.length - 1 ? 'Change Password' : 'Next'}
+                                            </Button>
+                                        </div>
+                                    </React.Fragment>
+                                )}
+                            </React.Fragment>
+                        </Card>
+                    </Container>
+                </div>
+            </main>
+        </React.Fragment>
     );
 }
 

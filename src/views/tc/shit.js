@@ -149,7 +149,7 @@
 //                                     {this.state.loading && (
 //                                         <span className="spinner-border spinner-border-sm"></span>
 //                                     )}
-//                                     <span>PdUserLogin</span>
+//                                     <span>LoginPDU</span>
 //                                 </button>
 //                             </div>
 //

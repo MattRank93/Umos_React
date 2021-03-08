@@ -1,7 +1,7 @@
 import React from "react";
 import {useDispatch} from "react-redux";
 import { Button } from "@material-ui/core"
-import {logout} from "../actions/auth";
+import {logout} from "../../actions/auth";
 
 const Home = () => {
     const dispatch = useDispatch();

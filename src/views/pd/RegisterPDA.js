@@ -75,7 +75,7 @@ const vpassword = (value) => {
     }
 };
 
-const PdAdminRegister = (props) => {
+const RegisterPDA = (props) => {
     const form = useRef();
     const checkBtn = useRef();
     const [message, setMessage] = useState("");
@@ -284,4 +284,4 @@ const PdAdminRegister = (props) => {
     );
 }
 
-export default PdAdminRegister;
+export default RegisterPDA;

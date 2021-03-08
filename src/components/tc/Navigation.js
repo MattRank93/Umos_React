@@ -13,6 +13,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import logo from "../../assets/HELPLOGO.png";
 import Button from "@material-ui/core/Button";
+import Container from "@material-ui/core/Container";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -23,6 +24,12 @@ const useStyles = makeStyles((theme) => ({
     },
     title: {
         flexGrow: 1,
+        width: 200
+    },
+    title3: {
+        flexGrow: 1,
+        width: 150,
+        paddingTop: 5
     },
     button: {
         textTransform: "none",
@@ -30,7 +37,6 @@ const useStyles = makeStyles((theme) => ({
         paddingTop: 10,
         paddingBottom: 10,
         paddingRight: 30,
-        boxShadow: "0px 0px 20px rgb(0, 0, 0, 0.05)",
         backgroundColor: theme.palette.secondary.main,
     },
 }));
@@ -64,20 +70,20 @@ const Navigation = (props) => {
             {/*    />*/}
             {/*</FormGroup>*/}
             <AppBar position="static">
-                <Toolbar>
-                    <Typography variant="h6" className={classes.title}>
-                        Tow Company Dashboard
-                    </Typography>
+                <Toolbar style={{backgroundColor: "#1c1c1c"}}>
+                    <Container className={classes.title} maxWidth={"xl"}>
+                        <img src={logo} alt="Logo" className={classes.title3}/>
+                    </Container>
                     {login && (
                         <div>
-                            <Button className={classes.button} href={'/register'}>
+                            <Button className={classes.button} href={'/tc/register'}>
                                 Register
                             </Button>
                         </div>
                     )}
                     {register && (
                         <div>
-                            <Button className={classes.button} href={'/'}>
+                            <Button className={classes.button} href={'/tc'}>
                                 Sign In
                             </Button>
                         </div>

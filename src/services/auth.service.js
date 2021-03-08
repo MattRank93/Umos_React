@@ -1,27 +1,20 @@
 import axios from "axios";
 
-const API_URL = "http://helpapp.ddns.net:3007/api/auth/";
+const API_URL = "http://localhost:3007/api/";
 
-const register = (submit) => {
-    return axios.post(API_URL + "tcadmin", submit, {headers: ""})
+const register = (registerRequest) => {
+    return axios.post(API_URL + "tcadmins", registerRequest, {headers: ""})
         .then((response) => {
-            return response.data;
+            return response.status;
         });
 };
 
-const login = (user) => { //
-    const loginRequest = {
-        email: user.email,
-        password: user.password,
-        role: "ROLE_TCADMIN"
-    }
-
-    return axios.post(API_URL + "login", loginRequest, {headers: {}})
+const login = (loginRequest) => {
+    return axios.post(API_URL + "auth/login", loginRequest, {headers: {}})
         .then((response) => {
             if (response.data.token) {
                 localStorage.setItem("user", JSON.stringify(response.data));
             }
-
             return response.data;
         });
 };

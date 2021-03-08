@@ -70,7 +70,7 @@ const required = (value) => {
     }
 };
 
-const PdAdminLogin = (props) => {
+const LoginPDA = (props) => {
     const form = useRef();
     const checkBtn = useRef();
     const [loading, setLoading] = useState(false);
@@ -208,4 +208,4 @@ const PdAdminLogin = (props) => {
     );
 }
 
-export default PdAdminLogin;
+export default LoginPDA;

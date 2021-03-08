@@ -3,7 +3,7 @@ import Form from "react-validation/build/form";
 import CheckButton from "react-validation/build/button";
 import {isEmail} from "validator";
 
-import AuthService from "../services/auth.service";
+import AuthService from "../../services/auth.service";
 import {makeStyles} from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
