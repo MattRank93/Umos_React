@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
 
 const HomeTCA = (props) => {
     const classes = useStyles();
-    const link = "http://72.131.85.29:3007/api/"
+    const link = "http://localhost:3007/api/"
 
     const [selectedFiles, setSelectedFiles] = useState(undefined);
     const [currentFile, setCurrentFile] = useState(undefined);
@@ -140,6 +140,10 @@ const HomeTCA = (props) => {
         console.log(`Errors: ${message}`)
     }
 
+    const button = (message) => {
+        client.send("/app/guestupdate", {}, JSON.stringify({'message': message}));
+    }
+
     const showTyping = (message) => {
         console.log('Someone is typing...');
     }
@@ -154,7 +158,7 @@ const HomeTCA = (props) => {
     }
 
     const sendName = () => {
-        client.send("/app/guestjoin", {}, JSON.stringify({'message': JSON.parse(localStorage.getItem("user")).firstname}));
+        client.send("/app/guestjoin", {}, JSON.parse(localStorage.getItem("user")).firstname);
     }
 
     const update = async () => {
@@ -259,7 +263,7 @@ const HomeTCA = (props) => {
                                     />
                                 </Grid>
                                 <Grid item>
-                                    <Button variant="contained" color="primary" component="span" onClick={() => {console.log("fuck you")}}>
+                                    <Button variant="contained" color="primary" component="span" onClick={() => {button('stuff')}}>
                                         sender
                                     </Button>
                                     <TextField variant="filled" style={{flex: 1, paddingLeft: 10, paddingRight: 10}}>
