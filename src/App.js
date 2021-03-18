@@ -5,13 +5,13 @@ import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import "./App.css";
 
 import LoginTCA from "./views/tc/LoginTCA";
-import HomeTCA from "./views/tc/HomeTCA";
 import {clearMessage} from "./actions/message";
 import {history} from "./helpers/history";
 import PrivateRoute from "./PrivateRoute";
 import Enter from "./views/Enter";
 import ResetPasswordTCA from "./views/tc/ResetPasswordTCA";
 import RegisterTCA from "./views/tc/RegisterTCA";
+import HomeTCA from "./views/tc/HomeTCA";
 
 
 const App = () => {
