@@ -8,6 +8,7 @@ import {login} from "../../actions/auth";
 import {Redirect} from "react-router-dom";
 import LoginFormTCA from "../../components/tc/login/LoginFormTCA";
 import Link from "@material-ui/core/Link";
+import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles((theme) => ({
     media: {
@@ -48,11 +49,16 @@ const LoginTCA = (props) => {
     const {isLoggedIn} = useSelector(state => state.auth);
     const [message, setMessage] = useState(null)
 
+
     const [submit, setSubmit] = useState({
         email: '',
         password: '',
         platform: "ROLE_TCADMIN"
     });
+
+    const handlePress = (href) => {
+        props.history.push(href);
+    }
 
     function handleChange(e) {
         const {name, value} = e.target;
@@ -97,9 +103,9 @@ const LoginTCA = (props) => {
                                     />
                                 </form>
                                 <Typography variant={'h5'} align={'right'}>
-                                    <Link href={'/tc/forgot'} variant={"subtitle1"}>
+                                    <Button onClick={() => handlePress("/tc/forgot")} variant={"subtitle1"}>
                                         Forgot Password?
-                                    </Link>
+                                    </Button>
                                 </Typography>
                                 <Typography >
                                     {message ? message : ''}
@@ -123,7 +129,7 @@ const LoginTCA = (props) => {
                                 />
                             </form>
                             <Typography variant={'h5'} align={'right'}>
-                                <Link href={'/tc/forgot'} variant={"subtitle1"}>
+                                <Link onClick={() => handlePress("/tc")} variant={"subtitle1"}>
                                     Forgot Password?
                                 </Link>
                             </Typography>
