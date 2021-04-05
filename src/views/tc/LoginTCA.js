@@ -51,7 +51,7 @@ const LoginTCA = (props) => {
     const [submit, setSubmit] = useState({
         email: '',
         password: '',
-        platform: "ROLE_TCADMIN"
+        platform: "ROLE_PDUSER"
     });
 
     function handleChange(e) {
@@ -81,7 +81,6 @@ const LoginTCA = (props) => {
             <CssBaseline/>
             <main>
                 <Navigation login/>
-
                 <Hidden xsDown>
                     <div className={classes.div}>
                         <Container>

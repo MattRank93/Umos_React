@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://72.131.85.29:3007/api/";
+const API_URL = "http://localhost:3008/api/";
 
 const register = (registerRequest) => {
     return axios.post(API_URL + "tcadmins", registerRequest, {headers: ""})

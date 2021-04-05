@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
 
 const HomeTCA = (props) => {
     const classes = useStyles();
-    const link = "http://localhost:3007/api/"
+    const link = "http://localhost:3008/api/"
 
     const [selectedFiles, setSelectedFiles] = useState(undefined);
     const [currentFile, setCurrentFile] = useState(undefined);
@@ -64,7 +64,7 @@ const HomeTCA = (props) => {
 
         let token = JSON.parse(localStorage.getItem("user")).token
 
-        axios.get('http://localhost:3007/api/images', {
+        axios.get('http://localhost:3008/api/images', {
             headers: {
                 'Authorization': token
             }
@@ -83,9 +83,9 @@ const HomeTCA = (props) => {
 
         let token = JSON.parse(localStorage.getItem("user")).token
 
-        axios.post('http://localhost:3007/api/images', {formData}, {
+        axios.post('http://localhost:3008/api/images', {formData}, {
             headers: {
-                'Authorization': "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4YWRhOGFmMC02YjQ3LTQ4YWEtOGM3Ny02Nzk2YmRiMGE1YWMiLCJpYXQiOjE2MTQ5MDYxNzIsImV4cCI6MTYxNTUxMDk3Mn0.CiWIGORFIfuDm-i0543JEQFjnFuZWTnddSaWGN6hsPg",
+                'Authorization': token,
             }
         })
             .then((response) => {
@@ -115,6 +115,9 @@ const HomeTCA = (props) => {
         client.connect({'Authorization' : token}, (frame) => {
             // Tell user that it is connected
             console.log(`Connected: ` + frame)
+
+
+
 
             client.subscribe('/topic/guestnames', (greeting) => {
                 showJoinedName(JSON.parse(greeting.body).content);
@@ -155,6 +158,17 @@ const HomeTCA = (props) => {
 
     const showMessage = (message) => {
         console.log(`Most recent message: ${message}`);
+    }
+
+    const setLocation = (lat, longi, JWT) => {
+        const location = {
+            latitude: lat,
+            longitude: longi,
+            active: true,
+            jwtToken: JWT
+        }
+
+        client.send("/app/my-location", {}, JSON.stringify(location));
     }
 
     const sendName = () => {
@@ -217,29 +231,39 @@ const HomeTCA = (props) => {
                                     <Button variant="contained" color="primary" component="span" onClick={stompConnect}>
                                         STOMP
                                     </Button>
-                                    <TextField variant="filled" style={{flex: 1, paddingLeft: 10, paddingRight: 10}}>
-                                    </TextField>
+                                    {/*<TextField variant="filled" style={{flex: 1, paddingLeft: 10, paddingRight: 10}}>*/}
+                                    {/*</TextField>*/}
                                 </Grid>
                                 <Grid item>
                                     <Typography variant={'h5'}>
-                                        Connect
+                                        Set-Location
                                     </Typography>
                                 </Grid>
                                 <Grid item align="center">
                                     <TextField
                                         fullWidth
-                                        id="connect"
-                                        name="connect"
+                                        id="lat"
+                                        name="lat"
                                         type="text"
-                                        label="Connect"
+                                        label="Lat"
+                                        variant="outlined"
+                                        value={send.connect}
+                                        onChange={handleChange}
+                                    />
+                                    <TextField
+                                        fullWidth
+                                        id="long"
+                                        name="long"
+                                        type="text"
+                                        label="Long"
                                         variant="outlined"
                                         value={send.connect}
                                         onChange={handleChange}
                                     />
                                 </Grid>
                                 <Grid item>
-                                    <Button variant="contained" color="primary" component="span">
-                                        CONNECT
+                                    <Button variant="contained" color="primary" component="span" onClick={() => {setLocation('-84.6541', '54.5712', token )}}>
+                                        SetLocation
                                     </Button>
                                     <Typography>
                                         {connectRes ? connectRes : ''}
@@ -261,6 +285,7 @@ const HomeTCA = (props) => {
                                         value={send.update}
                                         onChange={handleChange}
                                     />
+
                                 </Grid>
                                 <Grid item>
                                     <Button variant="contained" color="primary" component="span" onClick={() => {button('stuff')}}>
