@@ -15,6 +15,37 @@
 // import Contact from './Contact';
 // import Form from "react-validation/build/form";
 // import CheckButton from "react-validation/build/button";
+
+
+import axios from "axios";
+import AuthService from "../../services/auth.service";
+
+const handleRegister = (e) => {
+    const token = JSON.parse(localStorage.getItem("user")).token
+    e.preventDefault();
+    axios.post(API_URL + "tcusers", submit, {headers: {Authorization: token}})
+        .then((response) => {
+            return response.status;
+        });
+};
+
+AuthService.register(submit).then(
+    (response) => {
+        props.setMessage('User Registered');
+        props.response()
+    },
+    (error) => {
+        const resMessage =
+            (error.response &&
+                error.response.data &&
+                error.response.data.message) ||
+            error.message ||
+            error.toString();
+        console.log(resMessage)
+        props.setMessage("Error")
+        props.response()
+    }
+);
 //
 // class App extends React.Component {
 //
