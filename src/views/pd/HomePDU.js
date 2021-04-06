@@ -1,3 +1,4 @@
+
 import React, {useState} from "react";
 import {makeStyles} from "@material-ui/core/styles";
 import {useDispatch, useSelector} from "react-redux";
@@ -28,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const HomeTCA = (props) => {
+const HomePDU = (props) => {
     const classes = useStyles();
     const link = "http://localhost:3008/api/"
 
@@ -44,7 +45,7 @@ const HomeTCA = (props) => {
 
     React.useEffect(() => {
         if (!isLoggedIn) {
-            return <Redirect to="/pd"/>; //
+            return <Redirect to="/tc"/>; //
         }
     }, [isLoggedIn])
 
@@ -118,26 +119,15 @@ const HomeTCA = (props) => {
 
 
 
-
-            client.subscribe('/topic/guestnames', (greeting) => {
+            client.subscribe('/user/queue/greetings', (greeting) => {
                 showJoinedName(JSON.parse(greeting.body).content);
             });
 
-            client.subscribe('/topic/guestchats', (greeting) => {
-                showMessage(JSON.parse(greeting.body).content);
-            });
+            sendUserName();
 
-            client.subscribe('/topic/guestupdates', (greeting) => {
-                showTyping(JSON.parse(greeting.body).content);
-            });
-
-            client.subscribe('topic/errors', (greeting) => {
-                showErrors(JSON.parse(greeting.body).content);
-            });
-
-            sendName();
         })
     }
+
 
     const showErrors = (message) => {
         console.log(`Errors: ${message}`)
@@ -171,13 +161,10 @@ const HomeTCA = (props) => {
         client.send("/app/my-location", {}, JSON.stringify(location));
     }
 
-    // const sendUserName = () => {
-    //     client.send("/app/greetings", {}, JSON.parse(localStorage.getItem("user")).firstname);
-    // }
-
-    const sendName = () => {
-        client.send("/app/guestjoin", {}, JSON.parse(localStorage.getItem("user")).firstname);
+    const sendUserName = () => {
+        client.send("/app/greetings", {}, JSON.parse(localStorage.getItem("user")).firstname);
     }
+
 
     const update = async () => {
         client.connect({"Authorization": token}, function (frame) {
@@ -380,5 +367,5 @@ const HomeTCA = (props) => {
     )
 }
 
-export default HomeTCA;
+export default HomePDU;
 

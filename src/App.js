@@ -5,6 +5,7 @@ import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import "./App.css";
 
 import LoginTCA from "./views/tc/LoginTCA";
+import LoginPDU from "./views/pd/LoginPDU";
 import {clearMessage} from "./actions/message";
 import {history} from "./helpers/history";
 import PrivateRoute from "./PrivateRoute";
@@ -12,6 +13,7 @@ import Enter from "./views/Enter";
 import ResetPasswordTCA from "./views/tc/ResetPasswordTCA";
 import RegisterTCA from "./views/tc/RegisterTCA";
 import HomeTCA from "./views/tc/HomeTCA";
+import HomePDU from "./views/pd/HomePDU";
 
 
 const App = () => {
@@ -32,10 +34,10 @@ const App = () => {
               <Route exact path= {"/tc/forgot"} component={ResetPasswordTCA}/>
               <Route exact path= {"/tc/register"} component={RegisterTCA}/>
               <PrivateRoute exact path= {"/tc/home"} loggedIn={currentUser} component={HomeTCA}/>
-              {/*<Route exact path= {"/pd"} component={LoginTCA}/>*/}
+              <Route exact path= {"/pd"} component={LoginPDU}/>
               {/*<Route exact path= {"/pd/forgot"} component={ResetPasswordTCA}/>*/}
               {/*<Route exact path= {"/pd/register"} component={RegisterTCA}/>*/}
-              {/*<PrivateRoute path= {"/pd/home"} loggedIn={currentUser} component={HomeTCA}/>*/}
+              <PrivateRoute path= {"/pd/home"} loggedIn={currentUser} component={HomePDU}/>
             </Switch>
       </Router>
   );
