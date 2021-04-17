@@ -54,7 +54,7 @@ const LoginPDU = (props) => {
     const [submit, setSubmit] = useState({
         email: '',
         password: '',
-        platform: "ROLE_PDADMIN"
+        platform: "ROLE_PDUSER"
     });
 
     const handlePress = (href) => {

@@ -53,7 +53,7 @@ const LoginTCA = (props) => {
     const [submit, setSubmit] = useState({
         email: '',
         password: '',
-        platform: "ROLE_TCADMIN"
+        platform: "ROLE_TCUSER"
     });
 
     const handlePress = (href) => {

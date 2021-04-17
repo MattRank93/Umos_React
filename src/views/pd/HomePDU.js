@@ -45,7 +45,7 @@ const HomePDU = (props) => {
 
     React.useEffect(() => {
         if (!isLoggedIn) {
-            return <Redirect to="/tc"/>; //
+            return <Redirect to="/pd"/>; //
         }
     }, [isLoggedIn])
 
@@ -133,8 +133,8 @@ const HomePDU = (props) => {
         console.log(`Errors: ${message}`)
     }
 
-    const button = (message) => {
-        client.send("/app/guestupdate", {}, JSON.stringify({'message': message}));
+    const button = (message, user) => {
+        client.send("/queue/greetings", {}, JSON.stringify({'message': message, 'user': user}));
     }
 
     const showTyping = (message) => {
@@ -150,19 +150,18 @@ const HomePDU = (props) => {
         console.log(`Most recent message: ${message}`);
     }
 
-    const setLocation = (lat, longi, JWT) => {
+    const getLocation = (lat, longi, rad) => {
         const location = {
             latitude: lat,
             longitude: longi,
-            active: true,
-            jwtToken: JWT
+            radius: rad
         }
 
-        client.send("/app/my-location", {}, JSON.stringify(location));
+        client.send("/app/driver-locations", {}, JSON.stringify(location));
     }
 
     const sendUserName = () => {
-        client.send("/app/greetings", {}, JSON.parse(localStorage.getItem("user")).firstname);
+        client.send("/app/guestjoin", {}, JSON.parse(localStorage.getItem("user")).firstname);
     }
 
 
@@ -227,7 +226,7 @@ const HomePDU = (props) => {
                                 </Grid>
                                 <Grid item>
                                     <Typography variant={'h5'}>
-                                        Set-Location
+                                        Get-By-Location
                                     </Typography>
                                 </Grid>
                                 <Grid item align="center">
@@ -253,8 +252,8 @@ const HomePDU = (props) => {
                                     />
                                 </Grid>
                                 <Grid item>
-                                    <Button variant="contained" color="primary" component="span" onClick={() => {setLocation('-84.6541', '54.5712', token )}}>
-                                        SetLocation
+                                    <Button variant="contained" color="primary" component="span" onClick={() => {getLocation('42.58546', '-87.83230', 500 )}}>
+                                        Search for Drivers
                                     </Button>
                                     <Typography>
                                         {connectRes ? connectRes : ''}
@@ -279,8 +278,8 @@ const HomePDU = (props) => {
 
                                 </Grid>
                                 <Grid item>
-                                    <Button variant="contained" color="primary" component="span" onClick={() => {button('stuff')}}>
-                                        sender
+                                    <Button variant="contained" color="primary" component="span" onClick={() => {button('I need a tow','FirstTCU' )}}>
+                                        Pair User
                                     </Button>
                                     <TextField variant="filled" style={{flex: 1, paddingLeft: 10, paddingRight: 10}}>
                                     </TextField>

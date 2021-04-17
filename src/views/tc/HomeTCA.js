@@ -44,7 +44,7 @@ const HomeTCA = (props) => {
 
     React.useEffect(() => {
         if (!isLoggedIn) {
-            return <Redirect to="/pd"/>; //
+            return <Redirect to="/tc"/>; //
         }
     }, [isLoggedIn])
 
@@ -127,6 +127,10 @@ const HomeTCA = (props) => {
                 showMessage(JSON.parse(greeting.body).content);
             });
 
+            client.subscribe('/queue/greetings', (greeting) => {
+                showMessage(JSON.parse(greeting.body).content);
+            });
+
             client.subscribe('/topic/guestupdates', (greeting) => {
                 showTyping(JSON.parse(greeting.body).content);
             });
@@ -144,7 +148,7 @@ const HomeTCA = (props) => {
     }
 
     const button = (message) => {
-        client.send("/app/guestupdate", {}, JSON.stringify({'message': message}));
+        client.send("/app/greetings", {}, JSON.stringify({'message': message}));
     }
 
     const showTyping = (message) => {
@@ -170,10 +174,6 @@ const HomeTCA = (props) => {
 
         client.send("/app/my-location", {}, JSON.stringify(location));
     }
-
-    // const sendUserName = () => {
-    //     client.send("/app/greetings", {}, JSON.parse(localStorage.getItem("user")).firstname);
-    // }
 
     const sendName = () => {
         client.send("/app/guestjoin", {}, JSON.parse(localStorage.getItem("user")).firstname);
@@ -266,7 +266,7 @@ const HomeTCA = (props) => {
                                     />
                                 </Grid>
                                 <Grid item>
-                                    <Button variant="contained" color="primary" component="span" onClick={() => {setLocation('-84.6541', '54.5712', token )}}>
+                                    <Button variant="contained" color="primary" component="span" onClick={() => {setLocation('42.585441', '-87.832007', token )}}>
                                         SetLocation
                                     </Button>
                                     <Typography>
@@ -293,7 +293,7 @@ const HomeTCA = (props) => {
                                 </Grid>
                                 <Grid item>
                                     <Button variant="contained" color="primary" component="span" onClick={() => {button('stuff')}}>
-                                        sender
+                                        Confirm TOW
                                     </Button>
                                     <TextField variant="filled" style={{flex: 1, paddingLeft: 10, paddingRight: 10}}>
                                     </TextField>
