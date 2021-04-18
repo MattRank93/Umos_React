@@ -1,3 +1,4 @@
+
 import React, {useState} from "react";
 import {makeStyles} from "@material-ui/core/styles";
 import {useDispatch, useSelector} from "react-redux";
@@ -28,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const HomeTCA = (props) => {
+const HomePDU = (props) => {
     const classes = useStyles();
     const link = "http://localhost:3008/api/"
 
@@ -44,7 +45,7 @@ const HomeTCA = (props) => {
 
     React.useEffect(() => {
         if (!isLoggedIn) {
-            return <Redirect to="/tc"/>; //
+            return <Redirect to="/pd"/>; //
         }
     }, [isLoggedIn])
 
@@ -118,37 +119,22 @@ const HomeTCA = (props) => {
 
 
 
-
-            client.subscribe('/topic/guestnames', (greeting) => {
+            client.subscribe('/user/queue/greetings', (greeting) => {
                 showJoinedName(JSON.parse(greeting.body).content);
             });
 
-            client.subscribe('/topic/guestchats', (greeting) => {
-                showMessage(JSON.parse(greeting.body).content);
-            });
+            sendUserName();
 
-            client.subscribe('/queue/greetings', (greeting) => {
-                showMessage(JSON.parse(greeting.body).content);
-            });
-
-            client.subscribe('/topic/guestupdates', (greeting) => {
-                showTyping(JSON.parse(greeting.body).content);
-            });
-
-            client.subscribe('topic/errors', (greeting) => {
-                showErrors(JSON.parse(greeting.body).content);
-            });
-
-            sendName();
         })
     }
+
 
     const showErrors = (message) => {
         console.log(`Errors: ${message}`)
     }
 
-    const button = (message) => {
-        client.send("/app/greetings", {}, JSON.stringify({'message': message}));
+    const button = (message, user) => {
+        client.send("/queue/greetings", {}, JSON.stringify({'message': message, 'user': user}));
     }
 
     const showTyping = (message) => {
@@ -164,20 +150,20 @@ const HomeTCA = (props) => {
         console.log(`Most recent message: ${message}`);
     }
 
-    const setLocation = (lat, longi, JWT) => {
+    const getLocation = (lat, longi, rad) => {
         const location = {
             latitude: lat,
             longitude: longi,
-            active: true,
-            jwtToken: JWT
+            radius: rad
         }
 
-        client.send("/app/my-location", {}, JSON.stringify(location));
+        client.send("/app/driver-locations", {}, JSON.stringify(location));
     }
 
-    const sendName = () => {
+    const sendUserName = () => {
         client.send("/app/guestjoin", {}, JSON.parse(localStorage.getItem("user")).firstname);
     }
+
 
     const update = async () => {
         client.connect({"Authorization": token}, function (frame) {
@@ -240,7 +226,7 @@ const HomeTCA = (props) => {
                                 </Grid>
                                 <Grid item>
                                     <Typography variant={'h5'}>
-                                        Set-Location
+                                        Get-By-Location
                                     </Typography>
                                 </Grid>
                                 <Grid item align="center">
@@ -266,8 +252,8 @@ const HomeTCA = (props) => {
                                     />
                                 </Grid>
                                 <Grid item>
-                                    <Button variant="contained" color="primary" component="span" onClick={() => {setLocation('42.585441', '-87.832007', token )}}>
-                                        SetLocation
+                                    <Button variant="contained" color="primary" component="span" onClick={() => {getLocation('42.58546', '-87.83230', 500 )}}>
+                                        Search for Drivers
                                     </Button>
                                     <Typography>
                                         {connectRes ? connectRes : ''}
@@ -292,8 +278,8 @@ const HomeTCA = (props) => {
 
                                 </Grid>
                                 <Grid item>
-                                    <Button variant="contained" color="primary" component="span" onClick={() => {button('stuff')}}>
-                                        Confirm TOW
+                                    <Button variant="contained" color="primary" component="span" onClick={() => {button('I need a tow','FirstTCU' )}}>
+                                        Pair User
                                     </Button>
                                     <TextField variant="filled" style={{flex: 1, paddingLeft: 10, paddingRight: 10}}>
                                     </TextField>
@@ -380,5 +366,5 @@ const HomeTCA = (props) => {
     )
 }
 
-export default HomeTCA;
+export default HomePDU;
 
