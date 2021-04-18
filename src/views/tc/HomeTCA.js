@@ -139,6 +139,9 @@ const HomeTCA = (props) => {
                 showErrors(JSON.parse(greeting.body).content);
             });
 
+            client.subscribe('/user/queue/greetings', (greeting) => {
+                showJoinedName(JSON.parse(greeting.body).content);
+            });
             sendName();
         })
     }
@@ -148,7 +151,7 @@ const HomeTCA = (props) => {
     }
 
     const button = (message) => {
-        client.send("/app/greetings", {}, JSON.stringify({'message': message}));
+        client.send("/app/greetings", {}, JSON.stringify({'message': message }));
     }
 
     const showTyping = (message) => {

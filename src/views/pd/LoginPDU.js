@@ -1,4 +1,3 @@
-
 import React, {useState} from "react";
 import {makeStyles} from "@material-ui/core/styles";
 import {Card, CssBaseline, Hidden, Typography} from "@material-ui/core";
@@ -103,7 +102,7 @@ const LoginPDU = (props) => {
                                     />
                                 </form>
                                 <Typography variant={'h5'} align={'right'}>
-                                    <Button onClick={() => handlePress("/tc/forgot")} variant={"subtitle1"}>
+                                    <Button onClick={() => handlePress("/pd/forgot")} variant={"subtitle1"}>
                                         Forgot Password?
                                     </Button>
                                 </Typography>
@@ -129,7 +128,7 @@ const LoginPDU = (props) => {
                                 />
                             </form>
                             <Typography variant={'h5'} align={'right'}>
-                                <Link onClick={() => handlePress("/tc")} variant={"subtitle1"}>
+                                <Link onClick={() => handlePress("/pd")} variant={"subtitle1"}>
                                     Forgot Password?
                                 </Link>
                             </Typography>
