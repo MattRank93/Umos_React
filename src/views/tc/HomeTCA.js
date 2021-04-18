@@ -14,6 +14,7 @@ import {
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import clsx from "clsx";
+
 import TableTCA from "./TableTCA";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
@@ -88,6 +89,8 @@ const HomeTCA = (props) => {
 
 
     }, [isLoggedIn])
+
+
 
     const handleRegisterResponse = () => {
         setYesNo(false);
@@ -178,6 +181,7 @@ const HomeTCA = (props) => {
 
                             </Paper>
                         </Grid>
+
                     </Grid>
                 </Container>
             </main>

@@ -81,6 +81,7 @@ const LoginPDA = (props) => {
     const [userSub, setUserSub] = useState({
         email: '',
         password: '',
+        platform: "ROLE_PDADMIN"
     }); //
 
     function handleChange(e) {
@@ -184,7 +185,7 @@ const LoginPDA = (props) => {
 
                                     </Box>
 
-                                    <Link href={"/pdadminregister"} variant="body2">
+                                    <Link href={"/pd/register"} variant="body2">
                                         New User? Sign Up Here!
                                     </Link>
 

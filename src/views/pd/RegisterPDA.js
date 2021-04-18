@@ -15,7 +15,6 @@ import Avatar from "@material-ui/core/Avatar";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
-import Image from "../Image";
 import {AppBar, Toolbar} from "@material-ui/core";
 import Paper from "@material-ui/core/Paper";
 
@@ -247,7 +246,7 @@ const RegisterPDA = (props) => {
                                     )}
                                     <Grid container justify="left">
                                         <Grid item>
-                                            <Link href={"/pdadminlogin"} variant="body2">
+                                            <Link href={"/pd"} variant="body2">
                                                 Already have an admin account? Sign in
                                             </Link>
 

@@ -12,6 +12,7 @@ import PrivateRoute from "./PrivateRoute";
 import Enter from "./views/Enter";
 import ResetPasswordTCA from "./views/tc/ResetPasswordTCA";
 import RegisterTCA from "./views/tc/RegisterTCA";
+import RegisterPDA from "./views/pd/RegisterPDA";
 import HomeTCA from "./views/tc/HomeTCA";
 import HomePDA from "./views/pd/HomePDA";
 
@@ -36,7 +37,7 @@ const App = () => {
               <PrivateRoute exact path= {"/tc/home"} loggedIn={currentUser} component={HomeTCA}/>
               <Route exact path= {"/pd"} component={LoginPDA}/>
               {/*<Route exact path= {"/pd/forgot"} component={ResetPasswordTCA}/>*/}
-              {/*<Route exact path= {"/pd/register"} component={RegisterTCA}/>*/}
+              <Route exact path= {"/pd/register"} component={RegisterPDA}/>
               <PrivateRoute path= {"/pd/home"} loggedIn={currentUser} component={HomePDA}/>
             </Switch>
       </Router>

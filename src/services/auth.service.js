@@ -1,9 +1,16 @@
 import axios from "axios";
 
-const API_URL = "https://help-spring-api.herokuapp.com/api/";
+const API_URL = "http://localhost:3008/api/";
 
-const register = (registerRequest) => {
+const registerTCA = (registerRequest) => {
     return axios.post(API_URL + "tcadmins", registerRequest, {headers: ""})
+        .then((response) => {
+            return response.status;
+        });
+};
+
+const registerPDA = (registerRequest) => {
+    return axios.post(API_URL + "pdadmins", registerRequest, {headers: ""})
         .then((response) => {
             return response.status;
         });
@@ -28,7 +35,7 @@ const getCurrentUser = () => {
 };
 
 export default {
-    register,
+    register: registerTCA,
     login,
     logout,
     getCurrentUser,
