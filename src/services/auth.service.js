@@ -35,7 +35,8 @@ const getCurrentUser = () => {
 };
 
 export default {
-    register: registerTCA,
+    registerTCA: registerTCA,
+    registerPDA: registerPDA,
     login,
     logout,
     getCurrentUser,

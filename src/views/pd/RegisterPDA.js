@@ -88,6 +88,7 @@ const RegisterPDA = (props) => {
         phone: ''
     });
 
+
     function handleChange(e) {
         const {name, value} = e.target;
         setUserSub(user => ({...user, [name]: value}));
@@ -102,7 +103,7 @@ const RegisterPDA = (props) => {
         form.current.validateAll();
 
         if (checkBtn.current.context._errors.length === 0) {
-            AuthService.register(userSub).then(
+            AuthService.registerPDA(userSub).then(
                 (response) => {
                     setMessage("Success!");
                     setSuccessful(true);

@@ -24,7 +24,7 @@ const columns = [
     },
 ];
 
-const API_URL = "https://help-spring-api.herokuapp.com/api/";
+const API_URL = "http://localhost:3008/api/";
 
 const getPicture = async (uuid, setPic, setLoading) => {
 
@@ -55,7 +55,7 @@ const TableTCA = (props) => {
 
     React.useEffect(() => {
         const token = JSON.parse(localStorage.getItem("user")).token
-        axios.get(API_URL + "tcusers/all", {headers: {Authorization: token}})
+        axios.get(API_URL + "pdusers/all", {headers: {Authorization: token}})
             .then((response) => {
                 setTable(response.data)
                 console.log(response.data)

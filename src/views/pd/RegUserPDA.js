@@ -7,7 +7,7 @@ const useStyles = makeStyles((theme) => ({}));
 
 const RegUserTCA = (props) => {
 
-    const API_URL = "https://help-spring-api.herokuapp.com/api/";
+    const API_URL = "http://localhost:3008/api/";
     const token = JSON.parse(localStorage.getItem("user")).token
 
     const [submit, setSubmit] = useState({
@@ -26,7 +26,7 @@ const RegUserTCA = (props) => {
     const handleRegister = (e) => {
         e.preventDefault();
 
-        axios.post(API_URL + "tcusers", submit, {headers: {Authorization: token}})
+        axios.post(API_URL + "pdusers", submit, {headers: {Authorization: token}})
             .then((response) => {
                     console.log(response)
                     props.setMessage('User Registered');

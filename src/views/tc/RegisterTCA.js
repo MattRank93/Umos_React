@@ -60,7 +60,7 @@ const RegisterTCA = (props) => {
 
     const handleRegister = (e) => {
         e.preventDefault();
-        AuthService.register(submit).then(
+        AuthService.registerTCA(submit).then(
             (response) => {
                 console.log(response)
                 setMessage('User Registered');

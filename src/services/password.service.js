@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "https://localhost:3007/api/password/";
+const API_URL = "https://localhost:3008/api/password/";
 
 const forgot = (email) => {
     let body = {
