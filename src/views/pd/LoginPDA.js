@@ -17,7 +17,6 @@ import PolicyTwoToneIcon from '@material-ui/icons/PolicyTwoTone';
 import Typography from '@material-ui/core/Typography';
 import {makeStyles} from '@material-ui/core/styles';
 import {login} from "../../actions/auth";
-import Image from "../Image";
 import {AppBar, Container, Toolbar} from "@material-ui/core";
 import IconButton from "@material-ui/core/IconButton";
 import {Contactless} from "@material-ui/icons";
@@ -100,7 +99,7 @@ const LoginPDA = (props) => {
             dispatch(await login(userSub))
                 .then(() => {
 
-                    this.props.history.push("/profile");
+                    this.props.history.push("/pd/home");
                 })
                 .catch(() => {
                     setLoading(false);
@@ -111,7 +110,7 @@ const LoginPDA = (props) => {
     };
 
     if (isLoggedIn) {
-        return <Redirect to="/profile"/>;
+        return <Redirect to="/pd/home"/>;
     }
 
     return (
