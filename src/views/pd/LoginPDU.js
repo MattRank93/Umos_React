@@ -17,7 +17,6 @@ import PolicyTwoToneIcon from '@material-ui/icons/PolicyTwoTone';
 import Typography from '@material-ui/core/Typography';
 import {makeStyles} from '@material-ui/core/styles';
 import {login} from "../../actions/auth";
-import Image from "../Image";
 import {AppBar, Toolbar} from "@material-ui/core";
 import IconButton from "@material-ui/core/IconButton";
 
@@ -81,6 +80,7 @@ const LoginPDU = (props) => {
     const [userSub, setUserSub] = useState({
         email: '',
         password: '',
+        platform: "ROLE_PDUSER"
     }); //
 
     function handleChange(e) {
@@ -99,7 +99,7 @@ const LoginPDU = (props) => {
             dispatch(await login(userSub))
                 .then(() => {
 
-                    this.props.history.push("/profile");
+                    this.props.history.push("/pd/userhome");
                 })
                 .catch(() => {
                     setLoading(false);
@@ -110,7 +110,7 @@ const LoginPDU = (props) => {
     };
 
     if (isLoggedIn) {
-        return <Redirect to="/profile"/>;
+        return <Redirect to="/pd/userhome"/>;
     }
 
     return (
@@ -147,6 +147,20 @@ const LoginPDU = (props) => {
                                         autoComplete="username"
                                         autoFocus
                                         value={userSub.email}
+                                        onChange={handleChange}
+                                        validations={[required]}
+                                    />
+                                    <TextField
+                                        variant="outlined"
+                                        margin="normal"
+                                        required
+                                        fullWidth
+                                        id="pass"
+                                        label="Password"
+                                        name="password"
+                                        autoComplete="password"
+                                        autoFocus
+                                        //value={userSub.email}
                                         onChange={handleChange}
                                         validations={[required]}
                                     />
