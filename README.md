@@ -1,68 +1,71 @@
-This project was bootstrapped with [Create React Shit](https://github.com/facebook/create-react-app).
+[comment]: <> (# Highway Emergency Location Platform )
+<div align="center" spacing="5">
+<a href="https://imgur.com/o56PeaZ"><img src="https://i.imgur.com/o56PeaZ.png" title="source: imgur.com" /></a>
+</div>
+<div align="center">
+Highway Emergency Location Platform
 
-## Available Scripts
+</div>
+<div align="center">
 
-In the project directory, you can run:
+<br>
 
-### `npm start`
+<div align="center">
+  <sub>Built with ❤︎ by <a href="https://github.com/kayleqb">Quincy Kayle</a> and <a href="https://github.com/MattRank93">Matthew Rank</a>
+</div>
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Getting started
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
 
-### `npm test`
+To get the frontend running locally:
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Clone this repo
+- `npm install` to install all req'd dependencies
+- `npm start` to start the local server (this project uses create-react-app)
 
-### `npm run build`
+Local web server will use port 8080 instead of standard React's port 3000 to prevent conflicts with some backends. You can configure port in scripts section of `package.json`
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Alternatively, you can add `.env` file in the root folder of project to set environment variables (use PORT to change webserver's port). This file will be ignored by git, so it is suitable for API keys and other sensitive stuff. Refer to [dotenv](https://github.com/motdotla/dotenv) and [React](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#adding-development-environment-variables-in-env) documentation for more details. Also, please remove setting variable via script section of `package.json` - `dotenv` never override variables if they are already set.
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+### Making requests to the backend API
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+You can view the various api requests with examples at the following link
 
-### `npm run eject`
+<p align="center">
+	<a href="https://documenter.getpostman.com/view/13688383/TVmLCyby#61200d8c-9d42-4cb3-9dc7-b96fa7dca8c2"><strong>Explore the Postman example docs »</strong></a>
+	<br />
+	<br />
+</p>
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+If you want to change the API URL to a local server, simply edit `.env` 
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Functionality overview
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+This application holds the registration process and login for both Law enforcement and Tow truck admins. From there these admins can create supbordinate users and
+the law enforecment users can then login and use the portal to retrieve a tow truck. The application does all of this while displaying
+as little information about the list of tow trucks(and thier drivers) as possible to reduce the implicit bias that may seep through. 
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+**General functionality:**
 
-## Learn More
+- Authenticate users via JWT (login/signup pages + logout button on settings page)
+- CRUD users
+- GET and display lists of users (supbordinates for admins and tow truck users in proximity for the law enforecment users) !!semifunctioning!!
 
-You can learn more in the [Create React Shit documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+**The general page breakdown looks like this:**
 
-### Code Splitting
+- Home page (URL: /#/ )
+    - Three paths to choose: tow admin, police admin, police user
+    - bypasses if already logged in
+- Sign in/Sign up pages (URL: /#/tc, /#/pd, /#/pdu)
+    - Use JWT (store the token in localStorage)
+    - Can start registration from here for each admin, not user. user must be added by an admin on the admin view
+- forgot page (URL: /#/tc/forgot )
+- Home page to create/edit Users (URL: /#/tc/home, /#/pd/home )
+- User home page (URL: /#/pd/userhome )
+    - This page is largely under construction
+    - Connects to stomp websocket successfully
+    - curretnly working on p2p websocket implementation
+    - should eventually display a very simple button as per the client. 
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web Shit
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+<br />
