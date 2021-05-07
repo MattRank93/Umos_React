@@ -6,8 +6,9 @@ import axios from "axios";
 const useStyles = makeStyles((theme) => ({}));
 
 const RegUserTCA = (props) => {
-
-    const API_URL = "http://localhost:3008/api/";
+    // https://help-spring-api.herokuapp.com/api/
+    // http://localhost:3008/api/
+    const API_URL = "https://help-spring-api.herokuapp.com/api/";
     const token = JSON.parse(localStorage.getItem("user")).token
 
     const [submit, setSubmit] = useState({
