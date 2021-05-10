@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
 
 const HomePDU = (props) => {
     const classes = useStyles();
-    const link = "http://localhost:3008/api/"
+    const link = "https://help-spring-api.herokuapp.com/api"
 
     const [selectedFiles, setSelectedFiles] = useState(undefined);
     const [currentFile, setCurrentFile] = useState(undefined);
@@ -65,7 +65,7 @@ const HomePDU = (props) => {
 
         let token = JSON.parse(localStorage.getItem("user")).token
 
-        axios.get('http://localhost:3008/api/images', {
+        axios.get('https://help-spring-api.herokuapp.com/api', {
             headers: {
                 'Authorization': token
             }
@@ -84,7 +84,7 @@ const HomePDU = (props) => {
 
         let token = JSON.parse(localStorage.getItem("user")).token
 
-        axios.post('http://localhost:3008/api/images', {formData}, {
+        axios.post('https://help-spring-api.herokuapp.com/api/', {formData}, {
             headers: {
                 'Authorization': token,
             }

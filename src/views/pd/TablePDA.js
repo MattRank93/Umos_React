@@ -24,7 +24,7 @@ const columns = [
     },
 ];
 
-const API_URL = "http://localhost:3008/api/";
+const API_URL = "https://help-spring-api.herokuapp.com/api/";
 
 const getPicture = async (uuid, setPic, setLoading) => {
 
